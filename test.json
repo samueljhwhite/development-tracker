@@ -1,0 +1,34 @@
+# Example Task Schema
+
+{
+    "_id":{"$oid":"5ddac71d1c9d4400007e26a0"},
+    "name":"Create Task Schema",
+    "assignedTo":"Needs to change to user reference",
+    "dateCreated":{"$timestamp":{"t":1574619582,"i":1}},
+    "lastUpdated":{"$timestamp":{"t":1574619582,"i":2}},
+    "description":"This is an example task, which I'm writing to set the format of schema for tasks",
+    "status":"To Do",
+    "tags":["Database"],
+    "subTasks":[
+        {
+            "sTaskId":{"$oid":"5ddac81dab04550000dc6561"},
+            "name":"Create Subtask Schema",
+            "assignedTo":"Needs to change to user reference",
+            "dateCreated":{"$timestamp":{"t":0,"i":0}},
+            "lastUpdated":{"$timestamp":{"t":0,"i":0}},
+            "description":"This is an example subtask, which I'm writing to help set the format of sub tasks.",
+            "status":"To Do",
+            "tags":["Database"]
+        },
+        {
+            "sTaskId":{"$oid":"5ddac947ab04550000dc6562"},
+            "name":"Additional Subtask",
+            "assignedTo":"Needs to change to user reference",
+            "dateCreated":{"$timestamp":{"t":0,"i":0}},
+            "lastUpdated":{"$timestamp":{"t":0,"i":0}},
+            "description":"This is another example subtask.",
+            "status":"To Do",
+            "tags":["Database"]
+        }
+    ]
+}
