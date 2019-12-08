@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+import NavBar from './components/NavBarComponent.js';
+import ProjectList from './components/ProjectListComponent.js';
+import ProjectBoard from './components/ProjectBoardComponent.js';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeProject: ''
+    }
+  }
+
+  // Project selection - pushes assignedProject ObjectId when creating tasks. 
+  setActiveProject = (e) => {
+    console.log(e);
+  }
+
+  render() {
+    return (
+      <Router>
+        <NavBar />
+        <Route path='/' exact  component={ ProjectList } />
+        <Route path='/project/:id' component={ ProjectBoard } />
+      </Router>
+    );
+  }
+
 }
 
 export default App;
