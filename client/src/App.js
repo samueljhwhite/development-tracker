@@ -16,16 +16,18 @@ class App extends React.Component {
     }
   }
 
-  // Project selection - pushes assignedProject ObjectId when creating tasks. 
+  // Project selection - pushes assignedProject ObjectId when creating tasks. NOT IN USE
   setActiveProject = (e) => {
     console.log(e);
   }
 
+  // Root, and display list of projects.
+  // /projects/:id display Kanban of tasks, categorised by status
   render() {
     return (
       <Router>
         <NavBar />
-        <Route path='/' exact  component={ ProjectList } />
+        <Route path='/' exact component={ ProjectList } />
         <Route path='/project/:id' component={ ProjectBoard } />
       </Router>
     );

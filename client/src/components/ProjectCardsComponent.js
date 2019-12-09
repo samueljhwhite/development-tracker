@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// Recieves array of projects, and creates container & Link for each existing project.
 function ProjectCards(props) {
     const { projectsArr } = props;
 
