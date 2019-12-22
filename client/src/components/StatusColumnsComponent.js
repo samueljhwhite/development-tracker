@@ -1,16 +1,29 @@
 import React from 'react';
 
-function StatusColumns(props){
-    const { uniqueStatuses } = props;
-    console.log(uniqueStatuses);
+import TaskCard from './TaskCardComponent.js';
 
+function StatusColumns(props){
+    
+    const { uniqueStatuses, tasks } = props;
+
+    //Loop through unique statuses and create a column for each.
+    // On column creation, check all tasks for matching status value, and populate with individual tasks.
     return(
         <div>
             {
                 uniqueStatuses.map((status, i) => {
                     return(
-                        <div className='statusColumn' key={i}>
+                        <div className='statusColumn' key={i} id={status}>
                         <h3>{status}</h3>
+
+                        {
+                            tasks.map(task => {
+                                if (task.status === status) {
+                                    return <TaskCard task={task} />
+                                }
+                            })
+                        }
+
                         </div>
                     );
                 })

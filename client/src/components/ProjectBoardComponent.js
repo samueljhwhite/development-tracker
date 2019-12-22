@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import StatusColumns from './StatusColumnsComponent.js';
+import TaskCard from './TaskCardComponent.js';
 
 class ProjectBoard extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ class ProjectBoard extends React.Component {
         }
     }
 
-    // Call server & DB for project-specific tasks.
+    // Call server, query DB for project-specific tasks.
     componentDidMount() {
         // Take selected project from URL params.
         // Will be used to filter DB & update to component's state. 
@@ -47,13 +48,13 @@ class ProjectBoard extends React.Component {
     // Create container for each unique value in the 'status' field of current project.
     // Returns columns populated with TaskCards.
     render() {
-        const { uniqueStatuses } = this.state;
+        const { uniqueStatuses, tasks } = this.state;
         console.log(this.state.tasks);
 
         return(
             <div>
                 <p>This is the 'Project Board' Component</p>
-                <StatusColumns uniqueStatuses={uniqueStatuses} />
+                <StatusColumns uniqueStatuses={uniqueStatuses} tasks={tasks} />
             </div>
         );
     }
