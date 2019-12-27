@@ -14,6 +14,14 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
+// Route:       GET/tasks/:id
+// Description: Get specific task by ID
+router.route('/:id').get((req, res) => {
+    Task.findById(req.params.id)
+        .then(task => res.json(task))
+        .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
 // Route:       GET/tasks/project/:assignedProjectId
 // Description: Get all tasks from a given project
 router.route('/project/:id').get((req, res) => {

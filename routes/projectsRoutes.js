@@ -11,6 +11,15 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
+// Route:       GET/projects/:id
+// Description: Get specific project
+router.route('/:id').get((req, res) => {
+    Project.findById(req.params.id)
+        .then(project => res.json(project))
+        .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
+
 // Route:       POST/projects/add
 // Description: Create a new project
 router.route('/add').post((req, res) => {

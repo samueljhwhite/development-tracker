@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import NavBar from './components/NavBarComponent.js';
 import ProjectList from './components/ProjectListComponent.js';
 import ProjectBoard from './components/ProjectBoardComponent.js';
+import TaskView from './components/TaskViewComponent.js';
 
 import './App.css';
 
@@ -29,6 +30,7 @@ class App extends React.Component {
         <NavBar />
         <Route path='/' exact component={ ProjectList } />
         <Route path='/project/:id' component={ ProjectBoard } />
+        <Route path='/task/:id' component={ TaskView } />
       </Router>
     );
   }

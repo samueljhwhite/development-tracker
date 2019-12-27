@@ -8,7 +8,7 @@ class ProjectList extends React.Component {
         super(props);
 
         this.state = {
-            projectsArr: ['Dummy Project', 'The Second Dummy', 'The 3rd, And Likely Final, Dummy Project'] //Array of projects (objects)
+            projectsArr: [] //Array of projects (objects)
         }
     }
 
@@ -38,5 +38,3 @@ class ProjectList extends React.Component {
 }
 
 export default ProjectList;
-
-

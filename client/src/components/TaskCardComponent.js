@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TaskCard extends React.Component{
+class TaskCard extends React.Component {
     constructor(props) {
         super(props);
 
