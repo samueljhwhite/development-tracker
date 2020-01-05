@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class TaskCard extends React.Component {
     constructor(props) {
@@ -11,11 +12,13 @@ class TaskCard extends React.Component {
         const { task } = this.props;
 
         return(
-            <div className='taskCard'>
-                <p>{task.name}</p>
-                <p>{task.status}</p>
-                <p>{task.dateCreated}</p>
-            </div>
+            <Link to={`/task/${task._id}`}> 
+                <div className='taskCard'>
+                    <p>{task.name}</p>
+                    <p>{task.status}</p>
+                    <p>{task.dateCreated}</p>
+                </div>
+            </Link>
         );
     }
 }

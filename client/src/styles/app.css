@@ -19,22 +19,3 @@ h1, h2, h3, h4, h5, h6 {
   padding: 5px;
   border: 1px black solid;
 }
-
-.projectSelector {
-  border: 1px solid black;
-  margin: 5px;
-  padding: 5px;
-  text-align: center;
-}
-
-.statusColumn {
-  border: 1px solid black;
-  margin: 5px;
-  padding: 5px;
-}
-
-.taskCard {
-  border: 1px solid black;
-  margin: 5px;
-  padding: 5px;
-}

@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import '../styles/projectBoard.css';
+
 import StatusColumns from './StatusColumnsComponent.js';
 
 class ProjectBoard extends React.Component {
@@ -44,7 +46,7 @@ class ProjectBoard extends React.Component {
 
     // Create column for each status of the project. Columns contain tasks based on asssignment.
     render() {
-        const { tasks, projectStatuses } = this.state;
+        const { tasks, projectStatuses, projectID } = this.state;
 
         return(
             <div>
@@ -54,7 +56,8 @@ class ProjectBoard extends React.Component {
                 
                 <StatusColumns 
                     tasks={tasks} 
-                    projectStatuses={projectStatuses}
+                    projectStatuses={projectStatuses} 
+                    projectID={ projectID } 
                 />
 
             </div>

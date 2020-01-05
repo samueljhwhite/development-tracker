@@ -28,7 +28,7 @@ router.route('/project/:id').get((req, res) => {
     Task.find({ assignedProject: mongoose.Types.ObjectId(req.params.id) })
         .then(tasks => res.json(tasks))
         .catch(err => res.status(400).json(`Error: ${err}`));
-})
+});
 
 // Route:       POST/tasks/add
 // Description: Add a new task

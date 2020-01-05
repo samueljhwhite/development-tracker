@@ -6,7 +6,7 @@ import ProjectList from './components/ProjectListComponent.js';
 import ProjectBoard from './components/ProjectBoardComponent.js';
 import TaskView from './components/TaskViewComponent.js';
 
-import './App.css';
+import './styles/app.css';
 
 class App extends React.Component {
   constructor(props) {

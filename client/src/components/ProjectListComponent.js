@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import ProjectCards from './ProjectCardsComponent.js';
 
+import '../styles/projectList.css';
+
 class ProjectList extends React.Component {
     constructor(props) {
         super(props);
