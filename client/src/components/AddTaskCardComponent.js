@@ -49,7 +49,7 @@ class AddTaskCard extends React.Component {
         window.location = `/project/${this.state.assignedProject}`;
     }
 
-    // Toggle-able new task form. Registered with status based on status column.
+    // Toggle-able new task form. New task registered with status based on status column.
     render() {
        if (this.state.active === false) {
            return(
@@ -58,10 +58,10 @@ class AddTaskCard extends React.Component {
        } else {
            return (
                 <form className='newTaskSubmission' onSubmit={this.submitNewTask}>
-                    <textarea id='taskName' placeholder='Enter task name' onChange={this.updateTaskName}></textarea>
+                    <textarea placeholder='Enter task name' onChange={this.updateTaskName}></textarea>
                     <div className='newTaskSubmissionOptions'>
                         <button onClick={this.submitNewTask}>Add Task</button>
-                        <button onClick={this.toggleActive} >Cancel</button>
+                        <button onClick={this.toggleActive}>Cancel</button>
                     </div>
                 </form>
            );

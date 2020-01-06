@@ -1,0 +1,38 @@
+.task-view {
+    align-items: center;
+}
+
+.task-view-content {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.return-to-project {
+    margin: 10px;
+}
+
+.task-header {
+    border: 1px solid black;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-child {
+    margin: 5px;
+    padding: 5px;
+}
+
+.task-section {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+}
+
+.task-section-flex {
+    border: 1px solid black;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+}
