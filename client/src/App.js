@@ -22,8 +22,9 @@ class App extends React.Component {
     console.log(e);
   }
 
-  // Root, and display list of projects.
+  // Root; display list of projects.
   // /projects/:id display Kanban of tasks, categorised by status
+  // /task/:id display all details of a specific task
   render() {
     return (
       <Router>

@@ -36,11 +36,13 @@ class AddTaskCard extends React.Component {
     submitNewTask = (e) => {
         e.preventDefault();
 
+        const getDate = new Date();
+
         const newTask = {
             name: this.state.taskName,
             assignedProject: this.state.assignedProject,
             assignedTo: this.state.assignedTo,
-            // description: this.state.description,
+            dateCreated: getDate.toUTCString(),
             status: this.state.status,
         };
 

@@ -16,7 +16,7 @@ class TaskCard extends React.Component {
                 <div className='taskCard'>
                     <p>{task.name}</p>
                     <p>{task.status}</p>
-                    <p>{task.dateCreated}</p>
+                    <p>{task.createdAt}</p>
                 </div>
             </Link>
         );

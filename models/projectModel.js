@@ -4,7 +4,7 @@ const projectSchema = new mongoose.Schema({
 
     name: { type: String, required: true },
     description: { type: String, required: true },
-    dateCreated: { type: Date, default: Date.now },
+    // dateCreated: { type: Date, default: Date.now },
     statuses: {type: Array, default: [
         {
             name: 'New',
@@ -19,7 +19,9 @@ const projectSchema = new mongoose.Schema({
             index: 2
         }
     ]}
-
+},
+{
+    timestamps: true
 });
 
 const Project = mongoose.model('Project', projectSchema);
