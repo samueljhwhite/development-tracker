@@ -33,7 +33,9 @@ class TaskView extends React.Component {
 
             projectData: {}, // All queried project data
             projectStauses: [],
-            hasBeenEdited: false
+            existingProjectTags: [],
+            hasBeenEdited: false,
+            newTagValue: '',
         };
     }
 
@@ -41,31 +43,54 @@ class TaskView extends React.Component {
     componentDidMount() {
         const taskId = this.props.match.params.id;
 
-        axios.get(`http://localhost:5000/tasks/${taskId}`).then(req => {
+        axios.get(`http://localhost:5000/tasks/${taskId}`).then(res => {
             this.setState({
-                task: req.data,
-                assignedProject: req.data.assignedProject,
-                taskId: req.data._id,
-                assignedTo: req.data.assignedTo,
-                name: req.data.name,
-                description: req.data.description,
-                status: req.data.status,
-                subtasks: req.data.subtasks,
-                tags: req.data.tags,
-                createdAt: req.data.createdAt,
-                updatedAt: req.data.updatedAt
+                task: res.data,
+                assignedProject: res.data.assignedProject,
+                taskId: res.data._id,
+                assignedTo: res.data.assignedTo,
+                name: res.data.name,
+                description: res.data.description,
+                status: res.data.status,
+                subtasks: res.data.subtasks,
+                tags: res.data.tags,
+                createdAt: res.data.createdAt,
+                updatedAt: res.data.updatedAt
             });
 
             this.getProjectData();
+            this.getExistingTagData();
         });
     }
 
+    // Get needed project data for child components. 
     getProjectData = () => {
-        axios.get(`http://localhost:5000/projects/${this.state.assignedProject}`).then(req => {
+        axios.get(`http://localhost:5000/projects/${this.state.assignedProject}`).then(res => {
             this.setState({ 
-                projectData: req.data,
-                projectStauses: req.data.statuses
+                projectData: res.data,
+                projectStauses: res.data.statuses
              });
+
+        });
+    }
+
+    // Call DB for project tasks. Loop and collate all .tags array items, then filter for unique values and assign to component state.
+    getExistingTagData = () => {
+        axios.get(`http://localhost:5000/tasks/project/${this.state.assignedProject}`).then(res => {
+            const allArrItems = []
+
+            res.data.forEach(taskObj => {
+                const tagsArr = taskObj.tags;
+                    
+                tagsArr.forEach(tag => {
+                    allArrItems.push(tag);
+                });
+            });
+                
+            const uniqueTags = [...new Set(allArrItems)];
+            this.setState({
+                existingProjectTags: uniqueTags
+            })
         });
     }
 
@@ -83,8 +108,25 @@ class TaskView extends React.Component {
         // NOT CURRENTLY USED
     }
 
-    onChangeTags = () => {
+    captureNewTagValue = (e) => {
+        this.setState({
+            newTagValue: e.target.value
+        });
+    }
 
+    addNewTag = () => {
+        const newTag = this.state.newTagValue;
+        console.log(newTag);
+        const existingTagsArr = this.state.tags;
+        
+        const newTagsArr = existingTagsArr.push(newTag);
+        
+        this.setState({
+            tags: newTagsArr
+        });
+
+        console.log(this.state.tags);
+        this.pushChangesToDatabase();
     }
 
     onChangeDescription = (e) => {
@@ -103,8 +145,8 @@ class TaskView extends React.Component {
     }
 
     // Copy task data from state, update DB, and refresh window.
-    pushChangesToDatabase = (e) => {
-        e.preventDefault();
+    pushChangesToDatabase = () => {
+        // e.preventDefault();
         const id = this.state.taskId;
         
         const updatedTask = {
@@ -159,7 +201,10 @@ class TaskView extends React.Component {
                             taskAssignedTo={this.state.assignedTo} 
                         />
                         <Tags 
-                            tagsArr={tagsArr}
+                            tagsArr={tagsArr} 
+                            existingProjectTags={this.state.existingProjectTags} 
+                            captureNewTagValue={this.captureNewTagValue} 
+                            addNewTag={this.addNewTag} 
                         />
                     </div>
 
