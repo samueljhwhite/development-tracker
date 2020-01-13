@@ -136,6 +136,17 @@ class TaskView extends React.Component {
         this.pushChangesToDatabase();
     }
 
+    saveNewSubtaskToDB = (newSubtaskObj) => {
+        const subtasksArr = this.state.subtasks;
+        subtasksArr.push(newSubtaskObj);
+
+        this.setState({
+            subtasks: subtasksArr
+        });
+        
+        this.pushChangesToDatabase();
+    }
+
     registerEdit = () => {
         if (this.state.hasBeenEdited === false) {
             this.setState({ hasBeenEdited: true });
@@ -167,7 +178,6 @@ class TaskView extends React.Component {
         
         return(
             <div className='task-view'>
-                
                 <div className='return-to-project'>
                     <Link to={`/project/${this.state.assignedProject}`} > ᐸᐸ  '{this.state.projectData.name}' project board </Link>
                 </div>
@@ -186,11 +196,10 @@ class TaskView extends React.Component {
                     </div>
 
                     <Description taskDescription={taskDescription} onChangeDescription={this.onChangeDescription} pushChangesToDatabase={this.pushChangesToDatabase} />
-                    <SubtaskGenerator subtasksArr={subtasksArr} commitSubtaskChange={this.commitSubtaskChange} statusesArr={this.state.projectStauses} />
+                    <SubtaskGenerator subtasksArr={subtasksArr} commitSubtaskChange={this.commitSubtaskChange} statusesArr={this.state.projectStauses} saveNewSubtaskToDB={this.saveNewSubtaskToDB} />
                     <TimeStamps createdAt={this.state.createdAt} updatedAt={this.state.updatedAt} />
                     <UnsavedChanges hasBeenEdited={this.state.hasBeenEdited} pushChangesToDatabase={this.pushChangesToDatabase} />
                 </div>
-
             </div>
         );
     }
