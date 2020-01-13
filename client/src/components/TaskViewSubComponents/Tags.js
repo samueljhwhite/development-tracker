@@ -30,8 +30,20 @@ class Tags extends React.Component {
         } else {
             return(
                 <div className='flex-child'>
-                    <textarea placeholder='Enter a new tag' onChange={captureNewTagValue}></textarea>
-                    <button onClick={addNewTag}>ADD</button>
+                    <div>
+                        <textarea placeholder='Enter a new tag' onChange={captureNewTagValue}></textarea>
+                        <button onClick={addNewTag}>ADD</button>
+                    </div>
+                    <div>
+                        <select onChange={captureNewTagValue} >
+                            <option></option>
+                        {
+                            existingProjectTags.map((tag, i) => {
+                                return <option key={i}>{tag}</option>
+                            })
+                        }
+                        </select>
+                    </div>
                 </div>
             );
         }

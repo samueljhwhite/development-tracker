@@ -2,13 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-// TaskView subcomponents
 import TaskName from './TaskViewSubComponents/TaskName.js';
 import TaskStatus from './TaskViewSubComponents/TaskStatus.js';
 import AssignedTo from './TaskViewSubComponents/AssignedTo.js';
 import Tags from './TaskViewSubComponents/Tags.js';
 import Description from './TaskViewSubComponents/Description.js';
-import Subtasks from './TaskViewSubComponents/Subtasks.js';
+import SubtaskGenerator from './TaskViewSubComponents/SubtaskGenerator.js'
+// import Subtasks from './TaskViewSubComponents/Subtasks.js';
 import TimeStamps from './TaskViewSubComponents/TimeStamps.js';
 import UnsavedChanges from './TaskViewSubComponents/UnsavedChanges.js';
 
@@ -17,7 +17,6 @@ import '../styles/taskView.css';
 class TaskView extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             task: {}, // All queried task data (kept for reference).
             assignedProject: '',
@@ -39,16 +38,16 @@ class TaskView extends React.Component {
         };
     }
 
-    // Call server, set component state with Task data; then query project data.
+    // Call server, set component state with Task data; then query project & task (tag) data.
     componentDidMount() {
         const taskId = this.props.match.params.id;
 
         axios.get(`http://localhost:5000/tasks/${taskId}`).then(res => {
             this.setState({
-                task: res.data,
+                task: res.data, // Can be removed later
                 assignedProject: res.data.assignedProject,
                 taskId: res.data._id,
-                assignedTo: res.data.assignedTo,
+                assignedTo: res.data.assignedTo, //Can be removed later
                 name: res.data.name,
                 description: res.data.description,
                 status: res.data.status,
@@ -67,7 +66,7 @@ class TaskView extends React.Component {
     getProjectData = () => {
         axios.get(`http://localhost:5000/projects/${this.state.assignedProject}`).then(res => {
             this.setState({ 
-                projectData: res.data,
+                projectData: res.data, // Can likely be removed later
                 projectStauses: res.data.statuses
              });
 
@@ -116,16 +115,11 @@ class TaskView extends React.Component {
 
     addNewTag = () => {
         const newTag = this.state.newTagValue;
-        console.log(newTag);
         const existingTagsArr = this.state.tags;
-        
         const newTagsArr = existingTagsArr.push(newTag);
-        
         this.setState({
             tags: newTagsArr
         });
-
-        console.log(this.state.tags);
         this.pushChangesToDatabase();
     }
 
@@ -134,8 +128,12 @@ class TaskView extends React.Component {
         this.registerEdit();
     }
 
-    onChangeSubtasks = () => {
-
+    commitSubtaskChange = (arrIndex, newObj) => {
+        const subtasksArr = this.state.subtasks;
+        subtasksArr.splice(arrIndex, 1, newObj);
+        
+        this.setState({ subtasks: subtasksArr });
+        this.pushChangesToDatabase();
     }
 
     registerEdit = () => {
@@ -146,9 +144,7 @@ class TaskView extends React.Component {
 
     // Copy task data from state, update DB, and refresh window.
     pushChangesToDatabase = () => {
-        // e.preventDefault();
         const id = this.state.taskId;
-        
         const updatedTask = {
             name: this.state.name,
             assignedTo: this.state.assignedTo,
@@ -156,11 +152,12 @@ class TaskView extends React.Component {
             status: this.state.status,
             tags: this.state.tags,
             subtasks: this.state.subtasks,
-            // createdAt: this.state.dateCreated, props not necessary
         }
         axios.post(`http://localhost:5000/tasks/update/${id}`, updatedTask).then(res => console.log(res.data));
 
-        window.location = `/task/${id}`;
+        setTimeout(() => {
+            window.location = `/task/${id}`;
+        }, 1000);
     }
 
     render() {
@@ -172,61 +169,26 @@ class TaskView extends React.Component {
             <div className='task-view'>
                 
                 <div className='return-to-project'>
-                    <Link to={`/project/${this.state.assignedProject}`} > 
-                        ᐸᐸ  '{this.state.projectData.name}' project board 
-                    </Link>
+                    <Link to={`/project/${this.state.assignedProject}`} > ᐸᐸ  '{this.state.projectData.name}' project board </Link>
                 </div>
                 
                 <div className='task-view-content'>
-                    <UnsavedChanges 
-                        hasBeenEdited={this.state.hasBeenEdited} 
-                        pushChangesToDatabase={this.pushChangesToDatabase} 
-                    />
+                    <UnsavedChanges hasBeenEdited={this.state.hasBeenEdited} pushChangesToDatabase={this.pushChangesToDatabase} />
                     
                     <div className='task-header'>
-                        <TaskName 
-                            taskName={this.state.name} 
-                            projectName={this.state.projectData.name} 
-                            onChangeTaskName={this.onChangeTaskName} 
-                        />
-                        <TaskStatus 
-                            taskStatus={this.state.status} 
-                            statusesArr={this.state.projectStauses} 
-                            onChangeStatus={this.onChangeStatus} 
-                        />
+                        <TaskName taskName={this.state.name} projectName={this.state.projectData.name} onChangeTaskName={this.onChangeTaskName} />
+                        <TaskStatus taskStatus={this.state.status} statusesArr={this.state.projectStauses} onChangeStatus={this.onChangeStatus} />
                     </div>
 
                     <div className='task-section-flex'>
-                        <AssignedTo 
-                            taskAssignedTo={this.state.assignedTo} 
-                        />
-                        <Tags 
-                            tagsArr={tagsArr} 
-                            existingProjectTags={this.state.existingProjectTags} 
-                            captureNewTagValue={this.captureNewTagValue} 
-                            addNewTag={this.addNewTag} 
-                        />
+                        <AssignedTo taskAssignedTo={this.state.assignedTo} />
+                        <Tags tagsArr={tagsArr} existingProjectTags={this.state.existingProjectTags} captureNewTagValue={this.captureNewTagValue} addNewTag={this.addNewTag} />
                     </div>
 
-                    <Description 
-                        taskDescription={taskDescription} 
-                        onChangeDescription={this.onChangeDescription} 
-                        pushChangesToDatabase={this.pushChangesToDatabase} 
-                    />
-
-                    <Subtasks 
-                        subtasksArr={subtasksArr} 
-                    />
-
-                    <TimeStamps 
-                        createdAt={this.state.createdAt} 
-                        updatedAt={this.state.updatedAt} 
-                    />
-
-                    <UnsavedChanges 
-                        hasBeenEdited={this.state.hasBeenEdited} 
-                        pushChangesToDatabase={this.pushChangesToDatabase} 
-                    />
+                    <Description taskDescription={taskDescription} onChangeDescription={this.onChangeDescription} pushChangesToDatabase={this.pushChangesToDatabase} />
+                    <SubtaskGenerator subtasksArr={subtasksArr} commitSubtaskChange={this.commitSubtaskChange} statusesArr={this.state.projectStauses} />
+                    <TimeStamps createdAt={this.state.createdAt} updatedAt={this.state.updatedAt} />
+                    <UnsavedChanges hasBeenEdited={this.state.hasBeenEdited} pushChangesToDatabase={this.pushChangesToDatabase} />
                 </div>
 
             </div>

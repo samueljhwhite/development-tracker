@@ -1,5 +1,5 @@
 /* Import fonts */
-@import url('https://fonts.googleapis.com/css?family=Quicksand|Roboto:300&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 
 * {
   margin: 0;
@@ -7,14 +7,15 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f6f9fc;
+  font-family: 'Montserrat', sans-serif;
   font-size: 14px;
+  font-weight: 400;
+  background-color: #f6f9fc;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .navbar {
