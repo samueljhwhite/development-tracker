@@ -10,9 +10,9 @@ class AddTaskCard extends React.Component {
                 // Task submission details
             taskName: '',
             assignedProject: '', // ID Taken from parent
-            assignedTo: 'SW', // Temporary default
+            // assignedTo: 'SW', // Temporary default
             // description: '', NOT CURRENTLY USED
-            status: '' // Taken from parent
+            status: {} // Obj name & index
         };
     }
 
@@ -33,17 +33,12 @@ class AddTaskCard extends React.Component {
     }
 
     // Create new task with details from component state, post with axios, and refresh window.
-    submitNewTask = (e) => {
-        e.preventDefault();
-
-        const getDate = new Date();
-
+    submitNewTask = () => {
         const newTask = {
             name: this.state.taskName,
             assignedProject: this.state.assignedProject,
-            assignedTo: this.state.assignedTo,
-            dateCreated: getDate.toUTCString(),
-            status: this.state.status,
+            // assignedTo: this.state.assignedTo,
+            status: this.state.status.name,
         };
 
         axios.post('http://localhost:5000/tasks/add', newTask).then(res => console.log(res.data));
@@ -59,7 +54,7 @@ class AddTaskCard extends React.Component {
            );
        } else {
            return (
-                <form className='newTaskSubmission' onSubmit={this.submitNewTask}>
+                <form className='newTaskSubmission'>
                     <textarea placeholder='Enter task name' onChange={this.updateTaskName}></textarea>
                     <div className='newTaskSubmissionOptions'>
                         <button onClick={this.submitNewTask}>Add Task</button>

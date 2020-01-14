@@ -46,7 +46,7 @@ class ProjectBoard extends React.Component {
 
     // Create column for each status of the project. Columns contain tasks based on asssignment.
     render() {
-        const { tasks, projectStatuses, projectID } = this.state;
+        const { tasks, projectStatuses, projectID, name, description } = this.state;
 
         return(
             <div>
@@ -58,8 +58,9 @@ class ProjectBoard extends React.Component {
                     tasks={tasks} 
                     projectStatuses={projectStatuses} 
                     projectID={ projectID } 
+                    projectName={ name } 
+                    projectDescription={description} 
                 />
-
             </div>
         );
     }

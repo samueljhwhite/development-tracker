@@ -4,7 +4,7 @@ const taskSchema = new mongoose.Schema({
 
     name: { type: String, required: true },
     assignedProject: { type: mongoose.Types.ObjectId, required: true },
-    assignedTo: { type: String, required: true },
+    // assignedTo: { type: String, required: true },
     // dateCreated: { type: Date },
     // lastUpdated: { type: Date, default: Date.now },
     description: { type: String, default: '' },

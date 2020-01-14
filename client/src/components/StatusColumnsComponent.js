@@ -1,39 +1,100 @@
 import React from 'react';
+import axios from 'axios';
+import StatusColumn from './StatusColumn.js';
 
-import TaskCard from './TaskCardComponent.js';
-import AddTaskCard from './AddTaskCardComponent.js';
+class StatusColumns extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state ={
+            addingNewColumn: false,
+            newStatus: 'untitled column'
+        };
+    }
 
-function StatusColumns(props) {
-    const { tasks, projectStatuses, projectID } = props;
+    // Enable text area, or submit value of new text area.
+    manageNewColumnCreation = () => {
+        if (this.state.addingNewColumn === false) {
 
-    // Loop through all project statuses; create container for each.
-    // On loop, populate container with TaskCard if task status and project status match. 
+            this.setState({ addingNewColumn: true });
 
-    return(
-        <div className='projectBoard'>
-            {
-                // Loop through project statuses.
-                projectStatuses.map((projectStatus, i) => {
-                    return(
-                        <div className='statusColumn' key={i} id={projectStatus.name}>
-                            <h3>{projectStatus.name}</h3>
-                            {
-                                // loop through task statuses.
-                                tasks.map((task, i) => {
-                                    if (task.status === projectStatus.name) {
-                                        return <TaskCard task={task} key={i} />
-                                    } else {
-                                        return null; // Added purely to remove a compiler error....
-                                    }
-                                })
-                            }
-                            <AddTaskCard projectID={projectID} columnStatus={projectStatus.name}/>
-                        </div>
-                    );
-                })
-            }
-        </div>
-    );
+        } else {
+            const { projectStatuses, projectID, projectName, projectDescription } = this.props;
+
+            const newStatus = { name: this.state.newStatus, index: projectStatuses.length };
+            const newStatuses = projectStatuses;
+            newStatuses.push(newStatus);
+
+            const updatedProjectData = {
+                name: projectName,
+                description: projectDescription,
+                statuses: newStatuses
+            } 
+            
+            this.updateDB(projectID, updatedProjectData);
+        }
+    }
+
+    updateDB = (projectID, projectData) => {
+        axios.post(`http://localhost:5000/projects/update/${projectID}`, projectData).then(res => console.log(res));
+
+        setTimeout(() => {
+            window.location = `/project/${projectID}`
+        }, 800);
+    }
+
+    commitColumnNameChange = (index, updatedName) => {
+        const { projectStatuses, projectName, projectDescription, projectID } = this.props;
+
+        const updatedStatuses = projectStatuses;
+        updatedStatuses[index].name = updatedName;
+
+        const updatedProjectData = {
+            name: projectName,
+            description: projectDescription,
+            statuses: updatedStatuses
+        }
+
+        this.updateDB(projectID, updatedProjectData);
+    }
+
+    updateNewStatus = (e) => {
+        this.setState({ newStatus: e.target.value });
+    }
+
+    render() {
+        const { tasks, projectStatuses, projectID, projectName, projectDescription } = this.props;
+
+        return(
+            <div className='projectBoard'>
+                {
+                    // Loop through project statuses.
+                    projectStatuses.map((projectStatus, i) => {
+                        return( 
+                            <StatusColumn 
+                                key={i} 
+                                columnStatus={projectStatus} 
+                                projectID={projectID} 
+                                projectName={projectName} 
+                                projectDescription={projectDescription} 
+                                tasks={tasks} 
+                                commitColumnNameChange={this.commitColumnNameChange} 
+                            /> 
+                        )
+                    })
+                }
+                <div className='statusColumn'>
+                    {
+                        this.state.addingNewColumn
+                            ?
+                        <textarea onChange={this.updateNewStatus} defaultValue='Enter name & submit'></textarea>
+                            :
+                        null
+                    }
+                    <button onClick={this.manageNewColumnCreation}>+</button>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default StatusColumns;

@@ -38,6 +38,7 @@ class SubtaskGenerator extends React.Component {
 
         const { saveNewSubtaskToDB } = this.props; 
         saveNewSubtaskToDB(newSubtask);
+        this.setState({ addingNewSubtask: false });
     }
 
     render() {

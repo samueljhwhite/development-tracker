@@ -33,4 +33,19 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
+// Route        UPDATE/projects/update/:id
+// Description  Update an existing project
+router.route('/update/:id').post((req, res) => {
+    Project.findByIdAndUpdate(req.params.id).then(project => {
+        project.name = req.body.name;
+        project.description = req.body.description;
+        project.statuses = req.body.statuses;
+
+        project.save()
+            .then(() => res.json('Project updated'))
+            .catch(err => res.status(400).json(`Error: ${err}`));
+    })
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
 module.exports = router;
