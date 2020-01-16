@@ -1,14 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 
-import ProjectCards from './ProjectCardsComponent.js';
+import ProjectCardGenerator from './ProjectCardGenerator.js';
 
 import '../styles/projectList.css';
 
 class ProjectList extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             projectsArr: [], //Array of projects (objects)
             addingNewProject: false,
@@ -20,10 +19,10 @@ class ProjectList extends React.Component {
     // Get list of all existing projects (array), and update component's state.
     componentDidMount() {
         axios.get('http://localhost:5000/projects')
-        .then(res => {
-            this.setState({ projectsArr: res.data })
-        })
-        .catch(err => console.log(err))
+            .then(res => {
+                this.setState({ projectsArr: res.data })
+            })
+            .catch(err => console.log(err))
     }
 
     toggleAddNewProject = () => {
@@ -52,40 +51,53 @@ class ProjectList extends React.Component {
         }, 1000);
     }
 
+    // Delete the project and all related, assigned, task data.
+    deleteProjectAndTaskData = (projectID) => {
+        axios.delete(`http://localhost:5000/tasks/project/delete/${projectID}`).then(res => console.log(res));
+        axios.delete(`http://localhost:5000/projects/delete/${projectID}`).then(res => console.log(res));
+
+        setTimeout(() => {
+            window.location ='/';
+        }, 800);
+    }
+
     // Pass array of projects through to ProjectCards generator; creates a container and Link (react-dom-router) for each project in DB.
     // Conditional rendering of New Project text fields.
     render() {
         const { projectsArr } = this.state;
 
         return(
-            <div className='project-list'>
+            <div>
                 <p>This is the 'Project List' Component</p>
-                <ProjectCards projectsArr={ projectsArr } />
+                
+                    <ProjectCardGenerator projectsArr={ projectsArr } deleteProjectAndTaskData={this.deleteProjectAndTaskData}/>
 
-                {
-                    this.state.addingNewProject
+                <div>
+                    {
+                        this.state.addingNewProject
 
-                        ?
+                            ?
 
-                    <div className='new-project-form'>
-                        <div>
-                            <span>Project Name:</span>
-                            <textarea onChange={this.captureNewProjectName}></textarea>
+                        <div className='new-project-form'>
+                            <div>
+                                <span>Project Name:</span>
+                                <textarea onChange={this.captureNewProjectName}></textarea>
+                            </div>
+                            <div>
+                                <span>Project Description:</span>
+                                <textarea onChange={this.captureNewProjectDescription}></textarea>
+                            </div>
+                            <div>
+                                <button onClick={this.pushNewProjectToDB} >Add New Project</button>
+                                <button onClick={this.toggleAddNewProject} >Cancel</button>
+                            </div>
                         </div>
-                        <div>
-                            <span>Project Description:</span>
-                            <textarea onChange={this.captureNewProjectDescription}></textarea>
-                        </div>
-                        <div>
-                            <button onClick={this.pushNewProjectToDB} >Add New Project</button>
-                            <button onClick={this.toggleAddNewProject} >Cancel</button>
-                        </div>
-                    </div>
 
-                        :
+                            :
 
-                    <button onClick={this.toggleAddNewProject}>Create New Project</button>
-                }
+                        <button onClick={this.toggleAddNewProject}>Create New Project</button>
+                    }
+                </div>
             </div>
         );
     }

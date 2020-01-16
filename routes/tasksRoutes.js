@@ -57,6 +57,13 @@ router.route('/delete/:id').delete((req, res) => {
         .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
+// Route:       DELETE/tasks/project/delete/(project):id
+// Description: Find all tasks assigned to a specific project and delete. 
+router.route('/project/delete/:id').delete((req, res) => {
+    Task.deleteMany({ assignedProject: mongoose.Types.ObjectId(req.params.id) })
+    .then(tasks => res.json(tasks))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
 
 // Route        UPDATE/tasks/update/:id
 // Description  Update an existing task
