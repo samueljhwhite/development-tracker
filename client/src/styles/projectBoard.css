@@ -20,6 +20,20 @@
     width: 300px;
     background-color: #ffffff;
     border-radius: 2px;
+    position: relative;
+}
+
+.hold {
+    border: solid 4px #ccc;
+    border-style: dashed;
+}
+
+.invisible {
+    display: none;
+}
+
+.hovered {
+    background: #f4f4f4;
 }
 
 .task-card-child-title {

@@ -81,6 +81,23 @@ class TaskCard extends React.Component {
         }
     }
 
+    // Drag Functionality
+
+    // Assign data transfer (component state - object), store as string, and set drop effect.
+    dragStart = (e) => {
+        const task = {
+            id: this.state.id,
+            name: this.state.name,
+            assignedTo: this.state.assignedTo,
+            description: this.state.description,
+            status: this.state.status,
+            tags: this.state.tags,
+            subtasks:this.state.subtasks
+        }
+        e.dataTransfer.setData('object', JSON.stringify(task));
+        e.dataTransfer.dropEffect = 'move';
+    }
+
 
     render() {
         const { task } = this.props;
@@ -88,7 +105,7 @@ class TaskCard extends React.Component {
         const numSubtasks = this.state.subtasks.length.toString();
 
         return(
-            <div className='task-card'>
+            <div className='task-card' id={this.state.id} draggable='true' onDragStart={this.dragStart} >
                     {
                         this.state.editing 
                                 ? 

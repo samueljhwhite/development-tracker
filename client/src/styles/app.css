@@ -19,6 +19,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar {
+  align-items: center;
   padding: 5px;
-  border: 1px black solid;
+  padding-left: 35px;
+  padding-right: 35px;
+  background-color: #283e4a;
+  color: #c7d1d8;
+  display: flex;
+  justify-content: space-between;
 }

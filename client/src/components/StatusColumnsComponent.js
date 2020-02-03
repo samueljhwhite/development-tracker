@@ -14,9 +14,7 @@ class StatusColumns extends React.Component{
     // Enable text area, or submit value of new text area.
     manageNewColumnCreation = () => {
         if (this.state.addingNewColumn === false) {
-
             this.setState({ addingNewColumn: true });
-
         } else {
             const { projectStatuses, projectID, projectName, projectDescription } = this.props;
 

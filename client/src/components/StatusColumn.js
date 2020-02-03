@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import TaskCard from './TaskCardComponent.js';
 import AddTaskCard from './AddTaskCardComponent.js';
@@ -32,10 +33,36 @@ class StatusColumn extends React.Component {
         commitColumnNameChange(statusIndex, updatedStatusName);
     }
 
+    // Drag Functionality
+
+    // Assign drop effect for drag target.
+    dragOver = (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+    }
+
+    // If drop target is a status column, convert data from string, append copy of task card (by ID) to new column, and submit DB changes.
+    dragDrop = (e) => {
+        if(e.target.className === 'statusColumn') {
+            e.preventDefault();
+            const data = JSON.parse(e.dataTransfer.getData('object'));
+            const taskId = data.id;
+
+            e.target.appendChild(document.getElementById(taskId));
+            this.pushDragChangesToDB(data, this.state.columnStatus.name)
+        }        
+    }
+
+    // Recieve task data (object), edit 'status' value, and then update task record in DB.
+    pushDragChangesToDB = (taskData, newStatus) => {
+        taskData.status = newStatus
+        axios.post(`http://localhost:5000/tasks/update/${taskData.id}`, taskData).then(res => console.log(res))
+    }
+
     render() {
         const { tasks } = this.props;
         return (
-            <div className='statusColumn'>
+            <div className='statusColumn' onDrop={this.dragDrop} onDragOver={this.dragOver} onDragEnd={this.dragEnd}>
                 
                 { 
                     this.state.isEditing
