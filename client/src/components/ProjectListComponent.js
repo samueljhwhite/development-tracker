@@ -68,9 +68,11 @@ class ProjectList extends React.Component {
 
         return(
             <div>
-                <p>This is the 'Project List' Component</p>
+                <div className='directory-indication'>
+                    devtracker > 
+                </div>
                 
-                    <ProjectCardGenerator projectsArr={ projectsArr } deleteProjectAndTaskData={this.deleteProjectAndTaskData}/>
+                <ProjectCardGenerator projectsArr={ projectsArr } deleteProjectAndTaskData={this.deleteProjectAndTaskData}/>
 
                 <div>
                     {

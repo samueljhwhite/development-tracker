@@ -1,6 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
+import AddTaskCardIcon from '../assets/icons/icon-add-task-card.svg';
+import CancelAdditionIcon from '../assets/icons/icon-cancel-addition.svg';
+
 class AddTaskCard extends React.Component {
     constructor(props) {
         super(props);
@@ -50,15 +53,15 @@ class AddTaskCard extends React.Component {
     render() {
        if (this.state.active === false) {
            return(
-               <button onClick={this.toggleActive} >Add Task To Column</button>
+               <button onClick={this.toggleActive} > <img height='16px' width='16px' src={AddTaskCardIcon}></img> </button>
            );
        } else {
            return (
                 <form className='newTaskSubmission'>
                     <textarea placeholder='Enter task name' onChange={this.updateTaskName}></textarea>
                     <div className='newTaskSubmissionOptions'>
-                        <button onClick={this.submitNewTask}>Add Task</button>
-                        <button onClick={this.toggleActive}>Cancel</button>
+                        <button onClick={this.submitNewTask}> <img height='16px' width='16px' src={AddTaskCardIcon}></img> </button>
+                        <button onClick={this.toggleActive}><img height='16px' width='16px' src={CancelAdditionIcon}></img></button>
                     </div>
                 </form>
            );

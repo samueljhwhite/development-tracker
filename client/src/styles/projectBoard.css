@@ -3,14 +3,21 @@
     margin: 5px;
     padding: 5px;
     display: flex;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
 }
 
 .statusColumn {
-    border: 1px solid black;
+    background-color: #bebebe79;
+    /* border: 1px solid black; */
     margin: 5px;
     padding: 5px;
-    border-radius: 2px;
+    border-radius: 5px;
+    min-width: 310px;
+    min-height: 85vh;
+}
+
+.add-column {
+    margin: 10px;
 }
   
 .task-card {
@@ -21,6 +28,7 @@
     background-color: #ffffff;
     border-radius: 2px;
     position: relative;
+    cursor: grab;
 }
 
 .hold {
@@ -42,19 +50,19 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-evenly;
-    background-color: #283e4a;
-    color: #c7d1d8;
+    background-color: #2b303b;
+    color: #ffffff;
 }
 
 .task-card-child {
-    border-bottom: 1px solid #a8a8a8;
+    border-bottom: 1px solid #ffffff;
     padding: 8px;
     display: flex;
     justify-content: space-evenly;
 }
 
 .task-card-child-controls {
-    border-bottom: 1px solid #a8a8a8c0;
+    border-bottom: 1px solid #ffffffc0;
     display: flex;
     padding-left: 5px;
     padding-right: 5px;
@@ -83,4 +91,18 @@ a {
     width: 16px;
     height: 16px;
     margin-right: 2px;
+}
+
+.dropzone-hover {
+    background-color: #6d6d6d79;
+    /* border: 1px solid black; */
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    min-width: 310px;
+    min-height: 85vh;
+}
+
+.hidden {
+    display: none;
 }

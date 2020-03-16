@@ -10,21 +10,42 @@ body {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  background-color: #f6f9fc;
+  background-color: #ffffff;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
+  font-weight: 400;
   font-size: 18px;
+}
+
+h6 {
+  font-size: 13px;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid #84868b;
+  border-radius: 0px;
+  cursor: pointer;
 }
 
 .navbar {
   align-items: center;
-  padding: 5px;
+  padding-top: 5px;
   padding-left: 35px;
   padding-right: 35px;
-  background-color: #283e4a;
+  background-color: #2b303b;
   color: #c7d1d8;
   display: flex;
   justify-content: space-between;
+  margin: 0 auto;
+  align-items: baseline;
+}
+
+.directory-indication {
+  background-color: #2b303b;
+  color: #ffffff8e;
+  padding-bottom: 10px;
+  padding-left: 75px;
+  font-weight: 200;
 }

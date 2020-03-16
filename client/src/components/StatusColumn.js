@@ -13,8 +13,19 @@ class StatusColumn extends React.Component {
             projectName: this.props.projectName,
             projectDescription: this.props.projectDescription,
             isEditing: false,
-            updatedStatusName: ''
+            updatedStatusName: '',
+            tasksArr: []
         };
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('Called')
+        if (props.tasks !== state.tasksArr) {
+            return {
+                tasksArr: props.tasks
+            };
+        }
+        return null;
     }
 
     toggleEditing = () => {
@@ -35,34 +46,57 @@ class StatusColumn extends React.Component {
 
     // Drag Functionality
 
-    // Assign drop effect for drag target.
+    // Assign hover effect for drag target.
     dragOver = (e) => {
-            e.preventDefault();
+        e.preventDefault();
+        if (e.target.className === 'statusColumn') {
             e.dataTransfer.dropEffect = 'move';
+            e.target.className = 'dropzone-hover';
+        }
     }
 
-    // If drop target is a status column, convert data from string, append copy of task card (by ID) to new column, and submit DB changes.
-    dragDrop = (e) => {
-        if(e.target.className === 'statusColumn') {
+    // Remove hover effect for drag target. 
+    dragLeave = (e) => {
+        if (e.target.className === 'dropzone-hover') {
             e.preventDefault();
-            const data = JSON.parse(e.dataTransfer.getData('object'));
-            const taskId = data.id;
+            e.target.className = 'statusColumn';
+        }
+    }
 
-            e.target.appendChild(document.getElementById(taskId));
-            this.pushDragChangesToDB(data, this.state.columnStatus.name)
+    // If drop target is a hover target, convert data from string, copy create new array with dropped task, and push to component state. Update DB.
+    dragDrop = (e) => {
+        e.preventDefault();
+        if(e.target.className === 'dropzone-hover') {
+            e.target.className = 'statusColumn';
+            const data = JSON.parse(e.dataTransfer.getData('object'));
+            
+            console.log(data);
+
+            const updateTasksArr = this.state.tasksArr;
+            updateTasksArr.push(data);
+            // this.setState({ taskArr: updateTasksArr });
+            
+            console.log(data);
+            this.pushUpdatedArrayToState(updateTasksArr);
+            this.pushDragChangesToDB(data, this.state.columnStatus.name);
         }        
+    }
+
+    pushUpdatedArrayToState = (updatedTasksArr) => {
+        console.log(updatedTasksArr);
+        this.setState({ tasksArr: updatedTasksArr });
     }
 
     // Recieve task data (object), edit 'status' value, and then update task record in DB.
     pushDragChangesToDB = (taskData, newStatus) => {
         taskData.status = newStatus
-        axios.post(`http://localhost:5000/tasks/update/${taskData.id}`, taskData).then(res => console.log(res))
+        axios.post(`http://localhost:5000/tasks/update/${taskData._id}`, taskData).then(res => console.log(res))
     }
 
     render() {
         const { tasks } = this.props;
         return (
-            <div className='statusColumn' onDrop={this.dragDrop} onDragOver={this.dragOver} onDragEnd={this.dragEnd}>
+            <div className='statusColumn' onDrop={this.dragDrop} onDragOver={this.dragOver} onDragLeave={this.dragLeave}>
                 
                 { 
                     this.state.isEditing
@@ -73,12 +107,15 @@ class StatusColumn extends React.Component {
                         <button onClick={this.toggleEditing}>Cancel</button>
                     </div>
                         :
-                    <h3 onClick={this.toggleEditing}>{this.state.columnStatus.name}</h3>
+                    <div>
+                        <h3 onClick={this.toggleEditing}>{this.state.columnStatus.name}</h3>
+                        <AddTaskCard projectID={this.state.projectID} columnStatus={this.state.columnStatus}/>
+                    </div>
                 }
 
                 {
                     // loop through task statuses & assign matches.
-                    tasks.map((task, i) => {
+                    this.state.tasksArr.map((task, i) => {
                         if (task.status === this.state.columnStatus.name) {
                             return <TaskCard task={task} key={i} />
                         } else {
@@ -86,7 +123,6 @@ class StatusColumn extends React.Component {
                         }
                     })
                 }
-                <AddTaskCard projectID={this.state.projectID} columnStatus={this.state.columnStatus}/>
             </div>
         );
     }

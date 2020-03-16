@@ -47,12 +47,13 @@ class ProjectBoard extends React.Component {
     // Create column for each status of the project. Columns contain tasks based on asssignment.
     render() {
         const { tasks, projectStatuses, projectID, name, description } = this.state;
+        const lowerCaseName = name.toLowerCase();
 
         return(
             <div>
-                <p>This is the 'Project Board' Component</p>
-                <p><strong>Active Project:</strong> {this.state.name}</p>
-                <p><strong>Project Description:</strong> {this.state.description}</p>
+                <div className='directory-indication'>
+                    devtracker > <span>{lowerCaseName}</span>
+                </div>
                 
                 <StatusColumns 
                     tasks={tasks} 

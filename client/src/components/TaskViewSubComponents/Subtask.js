@@ -55,7 +55,7 @@ class Subtask extends React.Component {
         const { task, statusesArr } = this.props;
         return(
             <div className='subtask'>
-                <div className='task-section-flex'>
+                <div className='task-section-flex-subtask'>
                     <SubtaskName name={task.name} onNameChange={this.onNameChange} /> 
 
                     {this.state.hasBeenEdited ? <button onClick={this.updateSubtask}>Update!</button> : null}

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import TaskName from './TaskViewSubComponents/TaskName.js';
 import TaskStatus from './TaskViewSubComponents/TaskStatus.js';
@@ -31,6 +31,7 @@ class TaskView extends React.Component {
             updatedAt: '',
 
             projectData: {}, // All queried project data
+            projectNameString: '',
             projectStauses: [],
             existingProjectTags: [],
             hasBeenEdited: false,
@@ -67,7 +68,8 @@ class TaskView extends React.Component {
         axios.get(`http://localhost:5000/projects/${this.state.assignedProject}`).then(res => {
             this.setState({ 
                 projectData: res.data, // Can likely be removed later
-                projectStauses: res.data.statuses
+                projectStauses: res.data.statuses,
+                projectNameString: res.data.name
              });
 
         });
@@ -176,10 +178,13 @@ class TaskView extends React.Component {
         const subtasksArr = this.state.subtasks;
         const taskDescription = this.state.description;
         
+        const lowerCaseProjectName = this.state.projectNameString.toLowerCase();
+        const lowerCaseDescription = this.state.name.toLowerCase();
+
         return(
             <div className='task-view'>
-                <div className='return-to-project'>
-                    <Link to={`/project/${this.state.assignedProject}`} > ᐸᐸ  '{this.state.projectData.name}' project board </Link>
+                <div className='directory-indication'>
+                    devtracker > {lowerCaseProjectName} > {lowerCaseDescription}
                 </div>
                 
                 <div className='task-view-content'>

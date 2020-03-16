@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import StatusColumn from './StatusColumn.js';
 
-class StatusColumns extends React.Component{
+class StatusColumns extends React.Component {
     constructor(props) {
         super(props);
         this.state ={
@@ -80,7 +80,7 @@ class StatusColumns extends React.Component{
                         )
                     })
                 }
-                <div className='statusColumn'>
+                <div className='add-column'>
                     {
                         this.state.addingNewColumn
                             ?
