@@ -8,7 +8,7 @@ import AssignedTo from './TaskViewSubComponents/AssignedTo.js';
 import Tags from './TaskViewSubComponents/Tags.js';
 import Description from './TaskViewSubComponents/Description.js';
 import SubtaskGenerator from './TaskViewSubComponents/SubtaskGenerator.js'
-// import Subtasks from './TaskViewSubComponents/Subtasks.js';
+
 import TimeStamps from './TaskViewSubComponents/TimeStamps.js';
 import UnsavedChanges from './TaskViewSubComponents/UnsavedChanges.js';
 
@@ -103,10 +103,6 @@ class TaskView extends React.Component {
     onChangeStatus = (e) => {
         this.setState({ status: e.target.value });
         this.registerEdit();
-    }
-
-    onChangeAssignedUser = () => {
-        // NOT CURRENTLY USED
     }
 
     captureNewTagValue = (e) => {

@@ -7,6 +7,7 @@ import AddTaskCard from './AddTaskCardComponent.js';
 class StatusColumn extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             columnStatus: this.props.columnStatus, //Obj: name & index
             projectID: this.props.projectID,
@@ -14,18 +15,9 @@ class StatusColumn extends React.Component {
             projectDescription: this.props.projectDescription,
             isEditing: false,
             updatedStatusName: '',
-            tasksArr: []
+            tasksArr: [],
+            sortBy: '',
         };
-    }
-
-    static getDerivedStateFromProps(props, state) {
-        console.log('Called')
-        if (props.tasks !== state.tasksArr) {
-            return {
-                tasksArr: props.tasks
-            };
-        }
-        return null;
     }
 
     toggleEditing = () => {
@@ -44,8 +36,7 @@ class StatusColumn extends React.Component {
         commitColumnNameChange(statusIndex, updatedStatusName);
     }
 
-    // Drag Functionality
-
+        // Drag&Drop Functionality
     // Assign hover effect for drag target.
     dragOver = (e) => {
         e.preventDefault();
@@ -57,50 +48,53 @@ class StatusColumn extends React.Component {
 
     // Remove hover effect for drag target. 
     dragLeave = (e) => {
+        e.preventDefault();
         if (e.target.className === 'dropzone-hover') {
-            e.preventDefault();
             e.target.className = 'statusColumn';
         }
     }
 
-    // If drop target is a hover target, convert data from string, copy create new array with dropped task, and push to component state. Update DB.
+    // If drop target is a hover target, convert data from string, create new array with dropped task, and commit changes to parent*2 (ProjectBoard) component.
     dragDrop = (e) => {
         e.preventDefault();
         if(e.target.className === 'dropzone-hover') {
             e.target.className = 'statusColumn';
-            const data = JSON.parse(e.dataTransfer.getData('object'));
-            
-            console.log(data);
+            const data = JSON.parse(e.dataTransfer.getData('object')); // Data from TaskCard.
+            // Update column categorisation
+            data.status = this.state.columnStatus.name;
+            // Update DB
+            this.pushDragChangesToDB(data);
 
-            const updateTasksArr = this.state.tasksArr;
-            updateTasksArr.push(data);
-            // this.setState({ taskArr: updateTasksArr });
-            
-            console.log(data);
-            this.pushUpdatedArrayToState(updateTasksArr);
-            this.pushDragChangesToDB(data, this.state.columnStatus.name);
+            // Get existing array order.
+            const { tasks } = this.props;
+            const existingTasksArr = tasks;
+            // Find dragged task obj within existing array
+            const oldArrIndex = existingTasksArr.findIndex(obj => obj._id === data._id);
+            // Create new array with existing array removed (splice doesn't work here).
+            const updatedTasksArr = existingTasksArr.slice(0, oldArrIndex).concat(existingTasksArr.slice(oldArrIndex + 1));
+            // Push task with updated status into modified array.
+            updatedTasksArr.push(data);
+
+            // Commit array changes to ProjectBoard state. 
+            const { editTasksArrOnDrop } = this.props; // From ProjectBoard
+            editTasksArrOnDrop(updatedTasksArr);
         }        
     }
 
-    pushUpdatedArrayToState = (updatedTasksArr) => {
-        console.log(updatedTasksArr);
-        this.setState({ tasksArr: updatedTasksArr });
-    }
-
-    // Recieve task data (object), edit 'status' value, and then update task record in DB.
-    pushDragChangesToDB = (taskData, newStatus) => {
-        taskData.status = newStatus
+    // Recieves task data with modified status. 
+    pushDragChangesToDB = (taskData) => {
         axios.post(`http://localhost:5000/tasks/update/${taskData._id}`, taskData).then(res => console.log(res))
     }
 
     render() {
-        const { tasks } = this.props;
+        const { orderedTasks } = this.props; // Props from ProjectBoard
+
         return (
             <div className='statusColumn' onDrop={this.dragDrop} onDragOver={this.dragOver} onDragLeave={this.dragLeave}>
                 
                 { 
                     this.state.isEditing
-                        ?
+                        ? // Toggle edit mode
                     <div>
                         <textarea defaultValue={this.state.columnStatus.name} onChange={this.captureNameChange}></textarea>
                         <button onClick={this.commitNameChange}>Rename</button>
@@ -115,7 +109,7 @@ class StatusColumn extends React.Component {
 
                 {
                     // loop through task statuses & assign matches.
-                    this.state.tasksArr.map((task, i) => {
+                    orderedTasks.map((task, i) => {
                         if (task.status === this.state.columnStatus.name) {
                             return <TaskCard task={task} key={i} />
                         } else {

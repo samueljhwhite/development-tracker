@@ -13,19 +13,6 @@ import CancelIcon from '../assets/icons/icon-cancel.svg'
 class TaskCard extends React.Component {
     constructor(props) {
         super(props);
-
-        // this.state = {
-        //     editing: false,
-        //     id: '',
-        //     name: '',
-        //     tags: [],
-        //     subtasks: [],
-        //     assignedTo: '',
-        //     description: '',
-        //     status: '',
-        //     assignedProject: ''
-        // };
-
         this.state = {
             editing: false,
             __v: 0,
@@ -42,17 +29,6 @@ class TaskCard extends React.Component {
     }
 
     componentDidMount() {
-        // this.setState({
-        //     id: this.props.task._id,
-        //     name: this.props.task.name,
-        //     tags: this.props.task.tags,
-        //     subtasks: this.props.task.subtasks,
-        //     assignedTo: this.props.task.assignedTo,
-        //     description: this.props.task.description,
-        //     status: this.props.task.status,
-        //     assignedProject: this.props.task.assignedProject,
-        // });
-
         this.setState({
             __v: this.props.task.__v,
             _id: this.props.task._id,
@@ -85,7 +61,7 @@ class TaskCard extends React.Component {
             subtasks: this.state.subtasks
         }
 
-        axios.post(`http://localhost:5000/tasks/update/${this.state.id}`, updatedTask);
+        axios.post(`http://localhost:5000/tasks/update/${this.state._id}`, updatedTask);
 
         setTimeout(() => {
             window.location = `/project/${this.state.assignedProject}`
@@ -96,7 +72,7 @@ class TaskCard extends React.Component {
         const deleteString = prompt(`This action will delete this task, and all associated data. \n \n Enter task name (${this.state.name}) to confirm deletion.`)
         
         if (deleteString === this.state.name) {
-            axios.delete(`http://localhost:5000/tasks/delete/${this.state.id}`).then(res => console.log(res));
+            axios.delete(`http://localhost:5000/tasks/delete/${this.state._id}`).then(res => console.log(res));
             alert('Task Deleted');
 
             setTimeout(() => {
@@ -109,7 +85,6 @@ class TaskCard extends React.Component {
     }
 
     // Drag Functionality
-
     // Assign data transfer (component state - object), store as string, and set drop effect.
     dragStart = (e) => {
         const task = {
@@ -124,9 +99,6 @@ class TaskCard extends React.Component {
         }
         e.dataTransfer.setData('object', JSON.stringify(task));
         e.dataTransfer.dropEffect = 'move';
-        console.log(e.target)
-        e.persist(setTimeout(() => e.target.className = 'hidden', 0))
-        
     }
 
 
@@ -136,7 +108,7 @@ class TaskCard extends React.Component {
         const numSubtasks = this.state.subtasks.length.toString();
 
         return(
-            <div className='task-card' id={this.state.id} draggable='true' onDragStart={this.dragStart} >
+            <div className='task-card' id={this.state._id} draggable='true' onDragStart={this.dragStart} >
                     {
                         this.state.editing 
                                 ? 

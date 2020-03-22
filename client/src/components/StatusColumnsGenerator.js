@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import StatusColumn from './StatusColumn.js';
 
-class StatusColumns extends React.Component {
+class StatusColumnsGenerator extends React.Component {
     constructor(props) {
         super(props);
         this.state ={
@@ -60,7 +60,7 @@ class StatusColumns extends React.Component {
     }
 
     render() {
-        const { tasks, projectStatuses, projectID, projectName, projectDescription } = this.props;
+        const { tasks, projectStatuses, projectID, projectName, projectDescription, editTasksArrOnDrop, sortBy, searchInput, filterTag, orderedTasks } = this.props;
 
         return(
             <div className='projectBoard'>
@@ -76,6 +76,8 @@ class StatusColumns extends React.Component {
                                 projectDescription={projectDescription} 
                                 tasks={tasks} 
                                 commitColumnNameChange={this.commitColumnNameChange} 
+                                editTasksArrOnDrop = {editTasksArrOnDrop} 
+                                orderedTasks= { orderedTasks }
                             /> 
                         )
                     })
@@ -95,4 +97,4 @@ class StatusColumns extends React.Component {
     }
 }
 
-export default StatusColumns;
+export default StatusColumnsGenerator;
