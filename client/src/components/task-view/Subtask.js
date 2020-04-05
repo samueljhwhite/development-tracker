@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SubtaskStatus from './SubtaskSubComponents/SubtaskStatus.js';
-import SubtaskName from './SubtaskSubComponents/SubtaskName.js';
-import SubtaskDescription from './SubtaskSubComponents/SubtaskDescription.js';
+import SubtaskStatus from './subtask/SubtaskStatus.js';
+import SubtaskName from './subtask/SubtaskName.js';
+import SubtaskDescription from './subtask/SubtaskDescription.js';
 
 class Subtask extends React.Component {
     constructor(props) {

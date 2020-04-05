@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import DeleteIcon from '../assets/icons/icon-delete.svg';
-import EditIcon from '../assets/icons/icon-edit.svg'
-import TagIcon from '../assets/icons/icon-tag.svg'
-import SubtasksIcon from '../assets/icons/icon-subtasks.svg'
-import GoToIcon from '../assets/icons/icon-goto-arrow.svg';
-import SaveIcon from '../assets/icons/icon-save.svg';
-import CancelIcon from '../assets/icons/icon-cancel.svg'
+import DeleteIcon from '../../assets/icons/icon-delete.svg';
+import EditIcon from '../../assets/icons/icon-edit.svg'
+import TagIcon from '../../assets/icons/icon-tag.svg'
+import SubtasksIcon from '../../assets/icons/icon-subtasks.svg'
+import GoToIcon from '../../assets/icons/icon-goto-arrow.svg';
+import SaveIcon from '../../assets/icons/icon-save.svg';
+import CancelIcon from '../../assets/icons/icon-cancel.svg'
 
 class TaskCard extends React.Component {
     constructor(props) {

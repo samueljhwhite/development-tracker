@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import AddTaskCardIcon from '../assets/icons/icon-add-task-card.svg';
-import CancelAdditionIcon from '../assets/icons/icon-cancel-addition.svg';
+import AddTaskCardIcon from '../../assets/icons/icon-add-task-card.svg';
+import CancelAdditionIcon from '../../assets/icons/icon-cancel-addition.svg';
 
 class AddTaskCard extends React.Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class AddTaskCard extends React.Component {
                 // Toggle
             active: false,
                 // Task submission details
-            taskName: '',
+            taskName: 'untitled',
             assignedProject: '', // ID Taken from parent
             // assignedTo: 'SW', // Temporary default
             // description: '', NOT CURRENTLY USED

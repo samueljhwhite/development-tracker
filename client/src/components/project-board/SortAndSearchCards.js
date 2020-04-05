@@ -1,8 +1,9 @@
 import React from 'react';
 
-import SearchIcon from '../assets/icons/search.svg';
-import SortIcon from '../assets/icons/sort.svg';
-import TagIcon from '../assets/icons/icon-tag-white.svg';
+
+import SearchIcon from '../../assets/icons/search.svg';
+import SortIcon from '../../assets/icons/sort.svg';
+import TagIcon from '../../assets/icons/icon-tag-white.svg';
 
 class SortAndSearchCards extends React.Component {
     constructor(props) {
@@ -15,7 +16,6 @@ class SortAndSearchCards extends React.Component {
 
     render() {
         const { handleSearchInput, handleSortByChange, existingProjectTags, handleTagChange } = this.props;
-        console.log(existingProjectTags);
         
         return(
             <div className='sort-search'>

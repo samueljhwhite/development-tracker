@@ -1,16 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import TaskName from './TaskViewSubComponents/TaskName.js';
-import TaskStatus from './TaskViewSubComponents/TaskStatus.js';
-import AssignedTo from './TaskViewSubComponents/AssignedTo.js';
-import Tags from './TaskViewSubComponents/Tags.js';
-import Description from './TaskViewSubComponents/Description.js';
-import SubtaskGenerator from './TaskViewSubComponents/SubtaskGenerator.js'
-
-import TimeStamps from './TaskViewSubComponents/TimeStamps.js';
-import UnsavedChanges from './TaskViewSubComponents/UnsavedChanges.js';
+import TaskName from './task-view/TaskName.js';
+import TaskStatus from './task-view/TaskStatus.js';
+import Tags from './task-view/Tags.js';
+import Description from './task-view/Description.js';
+import SubtaskGenerator from './task-view/SubtaskGenerator.js'
+import TimeStamps from './task-view/TimeStamps.js';
+import UnsavedChanges from './task-view/UnsavedChanges.js';
 
 import '../styles/taskView.css';
 
@@ -180,7 +178,7 @@ class TaskView extends React.Component {
         return(
             <div className='task-view'>
                 <div className='directory-indication'>
-                    devtracker > {lowerCaseProjectName} > {lowerCaseDescription}
+                    devtracker > <em> <Link to={`/project/${this.state.assignedProject}`}> {lowerCaseProjectName} </Link> </em> > {lowerCaseDescription}
                 </div>
                 
                 <div className='task-view-content'>
@@ -192,7 +190,6 @@ class TaskView extends React.Component {
                     </div>
 
                     <div className='task-section-flex'>
-                        <AssignedTo taskAssignedTo={this.state.assignedTo} />
                         <Tags tagsArr={tagsArr} existingProjectTags={this.state.existingProjectTags} captureNewTagValue={this.captureNewTagValue} addNewTag={this.addNewTag} />
                     </div>
 

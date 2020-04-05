@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import TaskCard from './TaskCardComponent.js';
-import AddTaskCard from './AddTaskCardComponent.js';
+import TaskCard from './TaskCard.js';
+import AddTaskCard from './AddTaskCard.js';
 
 class StatusColumn extends React.Component {
     constructor(props) {
@@ -20,6 +20,7 @@ class StatusColumn extends React.Component {
         };
     }
 
+        // Column Management
     toggleEditing = () => {
         this.setState({ isEditing: !this.state.isEditing });
     }
@@ -29,11 +30,26 @@ class StatusColumn extends React.Component {
     }
 
     commitNameChange = () => {
-        const { commitColumnNameChange } = this.props
+        const { commitColumnNameChange } = this.props // from StatusColumnsGenerator
+        const oldStatusName = this.state.columnStatus.name;
         const updatedStatusName = this.state.updatedStatusName;
-        const statusIndex = this.state.columnStatus.index;
+        
+        commitColumnNameChange(updatedStatusName, oldStatusName);
+    }
 
-        commitColumnNameChange(statusIndex, updatedStatusName);
+    deleteColumnAndTasks = () => { // Delete all tasks associated with status value, then call deleteStatusColumnFromDB (StatusColumnsGenerator), to delete data at Project level.
+        const deleteString = prompt(`WARNING! Deleting this column will permanently remove this column and all related tasks. \n \n Type "${this.state.columnStatus.name}" to confirm deletion`);
+
+        if (deleteString === this.state.columnStatus.name) {
+            axios.delete(`http://localhost:5000/tasks/project/${this.state.projectID}/status/${this.state.columnStatus.name}`).then(res => console.log(res));
+            
+            const { deleteStatusColumnFromDB } = this.props;
+            deleteStatusColumnFromDB(this.state.columnStatus.name);
+            
+            alert('Correct, column and associated tasks deleted.');
+        } else {
+            alert('Incorrect column name, tasks and columns will not be deleted.');
+        }
     }
 
         // Drag&Drop Functionality
@@ -104,6 +120,7 @@ class StatusColumn extends React.Component {
                     <div>
                         <h3 onClick={this.toggleEditing}>{this.state.columnStatus.name}</h3>
                         <AddTaskCard projectID={this.state.projectID} columnStatus={this.state.columnStatus}/>
+                        <button onClick={this.deleteColumnAndTasks} className='delete-status-column'>Delete Column</button>
                     </div>
                 }
 

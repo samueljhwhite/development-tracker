@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import NavBar from './components/NavBarComponent.js';
-import ProjectList from './components/ProjectListComponent.js';
-import ProjectBoard from './components/ProjectBoardComponent.js';
-import TaskView from './components/TaskViewComponent.js';
+import NavBar from './components/NavBar.js';
+import ProjectList from './components/ProjectList.js';
+import ProjectBoard from './components/ProjectBoard.js';
+import TaskView from './components/TaskView.js';
 
 import './styles/app.css';
 

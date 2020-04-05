@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import '../styles/projectBoard.css';
 
-import StatusColumnsGenerator from './StatusColumnsGenerator.js';
-import SortAndSearchCards from './SortAndSearchCards.js';
+import StatusColumnsGenerator from './project-board/StatusColumnsGenerator.js';
+import SortAndSearchCards from './project-board/SortAndSearchCards.js';
 
 class ProjectBoard extends React.Component {
     constructor(props) {

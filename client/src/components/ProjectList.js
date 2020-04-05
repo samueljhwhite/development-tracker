@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import ProjectCardGenerator from './ProjectCardGenerator.js';
+import ProjectCardGenerator from './project-list/ProjectCardGenerator.js';
 
 import '../styles/projectList.css';
 

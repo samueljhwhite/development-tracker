@@ -65,7 +65,18 @@ router.route('/project/delete/:id').delete((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-// Route        UPDATE/tasks/update/:id
+// Route:       DELETE/tasks/project/(project):id/status/:status(name string)
+// Description  Find all tasks under a given project with a given status, and delete.
+router.route('/project/:id/status/:status').delete((req, res) => {
+    Task.deleteMany({
+        assignedProject: mongoose.Types.ObjectId(req.params.id),
+        status: req.params.status
+    })
+    .then(tasks => res.json(tasks))
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
+// Route        UPDATE/tasks/update/(task):id
 // Description  Update an existing task
 router.route('/update/:id').post((req, res) => {
     Task.findByIdAndUpdate(req.params.id).then(task => {
@@ -82,6 +93,14 @@ router.route('/update/:id').post((req, res) => {
             .then(() => res.json('Task updated'))
             .catch(err => res.status(400).json(`Error: ${err}`));
     })
+    .catch(err => res.status(400).json(`Error: ${err}`));
+});
+
+// Route        UPDATE/tasks/project/(project):id/status/(existing string):oldstatus/(new string):newstatus
+// Description  Update the status of multiple tasks when a Status Column is renamed.
+router.route('/project/:id/status/:oldstatus/:newstatus').post((req, res) => {
+    Task.updateMany({ assignedProject: req.params.id, status: req.params.oldstatus }, { $set: {status: req.params.newstatus }})
+    .then(tasks => res.json(tasks))
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 

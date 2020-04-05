@@ -23,7 +23,7 @@ class ProjectCard extends React.Component {
         const confirmationString = prompt('WARNING: This will permanantly delete this project, and all associated tasks. \n \n Type the name of this project to confirm deletion (case sensitive).');
         
         if (confirmationString === projectObj.name) {
-            deleteProjectAndTaskData(projectObj._id);
+            deleteProjectAndTaskData(projectObj._id); // from ProjectList
         } else {
             alert('Incorrect project name.')
         }
