@@ -82,8 +82,9 @@ class StatusColumn extends React.Component {
             this.pushDragChangesToDB(data);
 
             // Get existing array order.
-            const { tasks } = this.props;
-            const existingTasksArr = tasks;
+            const { orderedTasks } = this.props;
+            const existingTasksArr = orderedTasks;
+
             // Find dragged task obj within existing array
             const oldArrIndex = existingTasksArr.findIndex(obj => obj._id === data._id);
             // Create new array with existing array removed (splice doesn't work here).

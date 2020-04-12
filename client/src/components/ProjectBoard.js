@@ -91,17 +91,15 @@ class ProjectBoard extends React.Component {
 
             // Apply user entered filters - tags, search, and sort, and finally pass down orderedTasks to children components.
         // All tasks filtered against filterTag, assigned to tasksWithTag
-        let tasksWithTag = []
+        let tasksWithTag = tasks;
         if (filterTag !== '') {
-            tasksWithTag = tasks.filter(task => {
+            tasksWithTag = tasksWithTag.filter(task => {
                 return task.tags.includes(filterTag);
             });
-        } else {
-            tasksWithTag = tasks
         }
 
         // tasks that meet Tag filter, filtered against user's search input
-        const filteredTasks = tasksWithTag.filter(task => {
+        const filteredTasks = tasksWithTag.filter((task, i) => {
             return task.name.toLowerCase().includes(searchInput.toLowerCase());
         });
 
@@ -123,7 +121,6 @@ class ProjectBoard extends React.Component {
             orderedTasks = filteredTasks.sort(function(a, b) {
                 const updatedAtA = a.updatedAt;
                 const updatedAtB = b.updatedAt;
-    
                 if (updatedAtA < updatedAtB) {
                     return -1
                 } else if (updatedAtB < updatedAtA) {
@@ -160,7 +157,6 @@ class ProjectBoard extends React.Component {
                 />
                 
                 <StatusColumnsGenerator 
-                    tasks={tasks} 
                     projectStatuses={projectStatuses} 
                     projectID={ projectID } 
                     projectName={ name } 

@@ -6,40 +6,22 @@ import DeleteIcon from '../../assets/icons/icon-delete.svg';
 import EditIcon from '../../assets/icons/icon-edit.svg'
 import TagIcon from '../../assets/icons/icon-tag.svg'
 import SubtasksIcon from '../../assets/icons/icon-subtasks.svg'
-import GoToIcon from '../../assets/icons/icon-goto-arrow.svg';
-import SaveIcon from '../../assets/icons/icon-save.svg';
-import CancelIcon from '../../assets/icons/icon-cancel.svg'
+import GoToIcon from '../../assets/icons/go-to-white.svg';
+import SaveIcon from '../../assets/icons/confirm-white.svg';
+import CancelIcon from '../../assets/icons/cancel-white.svg'
 
 class TaskCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             editing: false,
-            __v: 0,
-            _id: '',
-            assignedProject: '',
-            createdAt: '',
-            description: '',
-            name: '',
-            status: '',
-            subtasks: [],
-            tags: [],
-            updatedAt: ''
+            name: ''
         };
     }
 
     componentDidMount() {
         this.setState({
-            __v: this.props.task.__v,
-            _id: this.props.task._id,
-            assignedProject: this.props.task.assignedProject,
-            createdAt: this.props.task.createdAt,
-            description: this.props.task.description,
             name: this.props.task.name,
-            status: this.props.task.status,
-            subtasks: this.props.task.subtasks,
-            tags: this.props.task.tags,
-            updatedAt: this.props.task.updatedAt
         })
     }
 
@@ -52,31 +34,33 @@ class TaskCard extends React.Component {
     }
 
     saveNameChange = () => {
+        const { task } = this.props; 
         const updatedTask = {
             name: this.state.name,
-            assignedTo: this.state.assignedTo,
-            description: this.state.description,
-            status: this.state.status,
-            tags: this.state.tags,
-            subtasks: this.state.subtasks
+            assignedTo: task.assignedTo,
+            description: task.description,
+            status: task.status,
+            tags: task.tags,
+            subtasks: task.subtasks
         }
 
-        axios.post(`http://localhost:5000/tasks/update/${this.state._id}`, updatedTask);
+        axios.post(`http://localhost:5000/tasks/update/${task._id}`, updatedTask);
 
         setTimeout(() => {
-            window.location = `/project/${this.state.assignedProject}`
+            window.location = `/project/${task.assignedProject}`
         }, 800);
     }
 
     deleteTask = () => {
-        const deleteString = prompt(`This action will delete this task, and all associated data. \n \n Enter task name (${this.state.name}) to confirm deletion.`)
+        const { task } = this.props;
+        const deleteString = prompt(`This action will delete this task, and all associated data. \n \n Enter task name (${task.name}) to confirm deletion.`)
         
-        if (deleteString === this.state.name) {
-            axios.delete(`http://localhost:5000/tasks/delete/${this.state._id}`).then(res => console.log(res));
+        if (deleteString === task.name) {
+            axios.delete(`http://localhost:5000/tasks/delete/${task._id}`).then(res => console.log(res));
             alert('Task Deleted');
 
             setTimeout(() => {
-                window.location = `/project/${this.state.assignedProject}`
+                window.location = `/project/${task.assignedProject}`
             }, 800);
 
         } else {
@@ -87,25 +71,27 @@ class TaskCard extends React.Component {
     // Drag Functionality
     // Assign data transfer (component state - object), store as string, and set drop effect.
     dragStart = (e) => {
-        const task = {
-            _id: this.state._id,
-            name: this.state.name,
-            assignedTo: this.state.assignedTo,
-            description: this.state.description,
-            status: this.state.status,
-            tags: this.state.tags,
-            subtasks: this.state.subtasks,
-            assignedProject: this.state.assignedProject
+        const { task } = this.props;
+        console.log(task);
+        const dragTask = {
+            _id: task._id,
+            name: task.name,
+            assignedTo: task.assignedTo,
+            description: task.description,
+            status: task.status,
+            tags: task.tags,
+            subtasks: task.subtasks,
+            assignedProject: task.assignedProject
         }
-        e.dataTransfer.setData('object', JSON.stringify(task));
+        e.dataTransfer.setData('object', JSON.stringify(dragTask));
         e.dataTransfer.dropEffect = 'move';
     }
 
 
     render() {
         const { task } = this.props;
-        const numTags = this.state.tags.length.toString();
-        const numSubtasks = this.state.subtasks.length.toString();
+        const numTags = task.tags.length.toString();
+        const numSubtasks = task.subtasks.length.toString();
 
         return(
             <div className='task-card' id={this.state._id} draggable='true' onDragStart={this.dragStart} >
@@ -114,7 +100,7 @@ class TaskCard extends React.Component {
                                 ? 
                         <div className='task-card-child-title'>
                             <div className='title-text'>
-                                <textarea onChange={this.handleNameChange} defaultValue={this.state.name}></textarea>
+                                <textarea onChange={this.handleNameChange} defaultValue={task.name}></textarea>
                             </div>
                             <div className='title-controls'>
                                 <button onClick={this.saveNameChange} className='title-button'> <img src={SaveIcon} className='icon' alt='save'></img> </button>
@@ -128,7 +114,7 @@ class TaskCard extends React.Component {
                             </div>
                             <div className='title-controls'>
                                 <Link to={`/task/${task._id}`}>
-                                    <button className='title-button'> <img src={GoToIcon} className='icon' alt='go to task'></img> </button>
+                                    <img src={GoToIcon} className='icon' alt='go to task'></img>
                                 </Link>
                             </div>
                         </div>
@@ -145,10 +131,10 @@ class TaskCard extends React.Component {
 
                     <div className='task-card-child-controls'>
                         <button onClick={this.toggleEdit}>
-                            <img src={EditIcon} className='icon' alt='edit task name'></img> Edit Name
+                            <img src={EditIcon} className='icon' alt='edit task name'></img>
                         </button>
                         <button onClick={this.deleteTask} >
-                            <img src={DeleteIcon} className='icon' alt='delete task'></img> Delete
+                            <img src={DeleteIcon} className='icon' alt='delete task'></img>
                         </button>
                     </div>
             </div>

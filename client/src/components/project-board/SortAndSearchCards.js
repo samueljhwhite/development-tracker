@@ -10,7 +10,7 @@ class SortAndSearchCards extends React.Component {
         super(props);
         this.state = {
             sort: 'alphabetical',
-            search: ''
+            // search: ''
         }
     }
 

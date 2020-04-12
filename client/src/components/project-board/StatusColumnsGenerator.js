@@ -92,7 +92,7 @@ class StatusColumnsGenerator extends React.Component {
     }
 
     render() {
-        const { tasks, projectStatuses, projectID, projectName, projectDescription, editTasksArrOnDrop, orderedTasks } = this.props;
+        const { projectStatuses, projectID, projectName, projectDescription, editTasksArrOnDrop, orderedTasks } = this.props;
 
         return(
             <div className='projectBoard'>
@@ -106,7 +106,6 @@ class StatusColumnsGenerator extends React.Component {
                                 projectID={projectID} 
                                 projectName={projectName} 
                                 projectDescription={projectDescription} 
-                                tasks={tasks} 
                                 commitColumnNameChange={this.commitColumnNameChange} 
                                 deleteStatusColumnFromDB={this.deleteStatusColumnFromDB} 
                                 editTasksArrOnDrop = {editTasksArrOnDrop} 
