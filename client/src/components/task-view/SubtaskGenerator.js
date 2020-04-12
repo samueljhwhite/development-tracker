@@ -7,9 +7,9 @@ class SubtaskGenerator extends React.Component {
         super(props);
         this.state = {
             addingNewSubtask: false,
-            newSubtaskName: '',
-            newSubtaskStatus: '',
-            newSubtaskDescription: ''
+            newSubtaskName: 'untitled subtask',
+            newSubtaskStatus: 'unstated',
+            newSubtaskDescription: 'Enter a description...'
         };
     }
 
@@ -46,7 +46,7 @@ class SubtaskGenerator extends React.Component {
 
         return(
             <div className='task-section'>
-                <h3>Subtasks</h3>
+                <span><strong>Subtasks</strong></span>
                 {
                     subtasksArr.map((task, i) => {
                         return <Subtask index={i} key={i} task={task} commitSubtaskChange={commitSubtaskChange} statusesArr={statusesArr} />

@@ -6,10 +6,10 @@ function TimeStamps(props) {
     return(
         <div className='task-section-flex'>
             <div className='flex-child'>
-                <p>{createdAt}</p>
+                <p><strong>Created: </strong>{createdAt.substring(0, 10)}</p>
             </div>
             <div className='flex-child'>
-                <p>{updatedAt}</p>
+                <p><strong>Updated: </strong> {updatedAt.substring(0, 10)}</p>
             </div>
         </div>
     );

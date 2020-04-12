@@ -19,8 +19,7 @@ class TaskName extends React.Component {
         if (this.state.editing === false) {
             return(
                 <div className='flex-child'>
-                    <span onClick={this.toggleEditing}>{taskName}</span>
-                    <p>part of {projectName}</p>
+                    <h3 onClick={this.toggleEditing}> <strong> {taskName} </strong> </h3>
                 </div>
             );
         } else {
@@ -31,7 +30,6 @@ class TaskName extends React.Component {
                             defaultValue={taskName} 
                             onChange={onChangeTaskName} 
                         ></textarea>
-                        <p>part of {projectName}</p>
                     </div>
             );
         }

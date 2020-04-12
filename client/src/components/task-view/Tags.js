@@ -18,7 +18,7 @@ class Tags extends React.Component {
         if (this.state.editing === false) {
             return(
                 <div className='flex-child'>
-                    <span>Tags:</span> <button onClick={this.toggleEditing}>Add Tag</button>
+                    <strong>Tags:</strong> <button onClick={this.toggleEditing}>Add Tag</button>
                     <br></br>
                     {
                         tagsArr.map((tag, i) => {

@@ -11,14 +11,14 @@ class ProjectCardGenerator extends React.Component {
   }
 
   render() {
-    const { projectsArr, deleteProjectAndTaskData } = this.props;
+    const { projectsArr, deleteProjectAndTaskData, updateProjectData } = this.props;
     
     return(
       <div className='card-list'>
         {
             projectsArr.map((projectObj, i) => {
                 return(
-                  <ProjectCard key={i} projectObj={projectObj} deleteProjectAndTaskData={deleteProjectAndTaskData} />
+                  <ProjectCard key={i} projectObj={projectObj} deleteProjectAndTaskData={deleteProjectAndTaskData} updateProjectData={updateProjectData}/>
                 );
             })
         }

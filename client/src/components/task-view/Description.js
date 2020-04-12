@@ -19,7 +19,7 @@ class Description extends React.Component {
         if (this.state.editing === false) {
             return(
                 <div className='task-section'>
-                    <span onClick={this.toggleEditing} >Description</span>
+                    <span onClick={this.toggleEditing} > <strong> Description </strong> </span>
                     <br></br>
                     <p>{taskDescription}</p>
                 </div>

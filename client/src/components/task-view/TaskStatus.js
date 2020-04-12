@@ -19,7 +19,7 @@ class TaskStatus extends React.Component {
         if (this.state.editing === false) {
             return(
                 <div className='flex-child' onClick={this.toggleEditing} >
-                    <p>Status: {taskStatus}</p>
+                    <p><strong>Status: </strong> {taskStatus}</p>
                 </div>
             );
         } else {

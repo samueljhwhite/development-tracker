@@ -25,12 +25,12 @@ class SubtaskStatus extends React.Component {
 
         if (this.state.editing === false) {
             return(
-                <div onClick={this.toggleEditing}>Status: {this.state.status}</div>
+                <div onClick={this.toggleEditing}> <strong>Status: </strong>{this.state.status}</div>
             );
         } else {
             return(
                 <div>
-                    Statuses: 
+                    Status: 
                     <select onChange={onStatusChange} >
                         {
                             statusesArr.map((status, i) => {

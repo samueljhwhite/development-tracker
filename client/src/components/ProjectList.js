@@ -11,8 +11,8 @@ class ProjectList extends React.Component {
         this.state = {
             projectsArr: [], //Array of projects (objects)
             addingNewProject: false,
-            newProjectName: '',
-            newProjectDescription: ''
+            newProjectName: 'untitled project',
+            newProjectDescription: 'description unstated'
         }
     }
 
@@ -51,7 +51,15 @@ class ProjectList extends React.Component {
         }, 1000);
     }
 
-    // Delete the project and all related, assigned, task data.
+    updateProjectData = (updatedProjectObj) => { // Called at ProjectCard
+        axios.post(`http://localhost:5000/projects/update/${updatedProjectObj._id}`, updatedProjectObj).then(res => console.log(res));
+
+        setTimeout(() => {
+            window.location ='/';
+        }, 800);
+    }
+
+    // Delete the project and all related, assigned, task data. Called at ProjectCard.
     deleteProjectAndTaskData = (projectID) => {
         axios.delete(`http://localhost:5000/tasks/project/delete/${projectID}`).then(res => console.log(res));
         axios.delete(`http://localhost:5000/projects/delete/${projectID}`).then(res => console.log(res));
@@ -72,15 +80,15 @@ class ProjectList extends React.Component {
                     devtracker > 
                 </div>
                 
-                <ProjectCardGenerator projectsArr={ projectsArr } deleteProjectAndTaskData={this.deleteProjectAndTaskData}/>
+                <ProjectCardGenerator projectsArr={ projectsArr } deleteProjectAndTaskData={this.deleteProjectAndTaskData} updateProjectData={this.updateProjectData} />
 
-                <div>
+                <div className='project-list'>
                     {
                         this.state.addingNewProject
 
                             ?
 
-                        <div className='new-project-form'>
+                        <div className='new-project-form-active'>
                             <div>
                                 <span>Project Name:</span>
                                 <textarea onChange={this.captureNewProjectName}></textarea>
@@ -97,7 +105,9 @@ class ProjectList extends React.Component {
 
                             :
 
-                        <button onClick={this.toggleAddNewProject}>Create New Project</button>
+                        <div className='new-project-form'>
+                            <button onClick={this.toggleAddNewProject}>Create New Project</button>
+                        </div>
                     }
                 </div>
             </div>

@@ -18,7 +18,7 @@ class SubtaskName extends React.Component {
 
         if (this.state.editing === false) {
             return(
-                <div className='flex-child' onClick={this.toggleEditing}>{this.state.name}</div>
+                <div className='flex-child' onClick={this.toggleEditing}> <strong> {this.state.name} </strong></div>
             );
         } else {
             return(
