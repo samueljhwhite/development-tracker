@@ -124,7 +124,7 @@ class StatusColumn extends React.Component {
                     <div className='col-details'>
                         <div className='col-details-header'>
                             <h3 onClick={this.toggleEditing}>{this.state.columnStatus.name}</h3>
-                            <button onClick={this.deleteColumnAndTasks} className='delete-status-column'><img src={DeleteIcon} height='20px' alt='delete column'></img></button>
+                            <button onClick={this.deleteColumnAndTasks} className='delete-status-column'><img src={DeleteIcon} height='12px' alt='delete column'></img></button>
                         </div>
                         <div className='col-controls'>
                             <AddTaskCard projectID={this.state.projectID} columnStatus={this.state.columnStatus}/>
