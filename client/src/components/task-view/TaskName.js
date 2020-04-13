@@ -14,7 +14,7 @@ class TaskName extends React.Component {
 
     render() {
         
-        const { taskName, projectName, onChangeTaskName } = this.props;
+        const { taskName, onChangeTaskName } = this.props;
         
         if (this.state.editing === false) {
             return(

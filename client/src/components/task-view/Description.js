@@ -19,14 +19,15 @@ class Description extends React.Component {
         if (this.state.editing === false) {
             return(
                 <div className='task-section'>
-                    <span onClick={this.toggleEditing} > <strong> Description </strong> </span>
+                    <span> <strong> Description </strong> </span>
                     <br></br>
-                    <p>{taskDescription}</p>
+                    <p onClick={this.toggleEditing}> {taskDescription} </p>
                 </div>
             );
         } else {
             return(
-                <form className='task-details-editing'>
+                <form className='task-section'>
+                    <span> <strong> Description </strong> </span>
                     <textarea 
                         placeholder='Enter task details' 
                         defaultValue={taskDescription} 

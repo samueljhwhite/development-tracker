@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import TaskCard from './TaskCard.js';
 import AddTaskCard from './AddTaskCard.js';
+import DeleteIcon from '../../assets/icons/icon-delete.svg';
 
 class StatusColumn extends React.Component {
     constructor(props) {
@@ -112,16 +113,22 @@ class StatusColumn extends React.Component {
                 { 
                     this.state.isEditing
                         ? // Toggle edit mode
-                    <div>
+                    <div className='rename-col'>
                         <textarea defaultValue={this.state.columnStatus.name} onChange={this.captureNameChange}></textarea>
-                        <button onClick={this.commitNameChange}>Rename</button>
-                        <button onClick={this.toggleEditing}>Cancel</button>
+                        <div>
+                            <button onClick={this.commitNameChange}>Rename</button>
+                            <button onClick={this.toggleEditing}>Cancel</button>
+                        </div>
                     </div>
                         :
-                    <div>
-                        <h3 onClick={this.toggleEditing}>{this.state.columnStatus.name}</h3>
-                        <AddTaskCard projectID={this.state.projectID} columnStatus={this.state.columnStatus}/>
-                        <button onClick={this.deleteColumnAndTasks} className='delete-status-column'>Delete Column</button>
+                    <div className='col-details'>
+                        <div className='col-details-header'>
+                            <h3 onClick={this.toggleEditing}>{this.state.columnStatus.name}</h3>
+                            <button onClick={this.deleteColumnAndTasks} className='delete-status-column'><img src={DeleteIcon} height='20px' alt='delete column'></img></button>
+                        </div>
+                        <div className='col-controls'>
+                            <AddTaskCard projectID={this.state.projectID} columnStatus={this.state.columnStatus}/>
+                        </div>
                     </div>
                 }
 

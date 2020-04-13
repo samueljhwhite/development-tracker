@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import StatusColumn from './StatusColumn.js';
+import NewColumnIcon from '../../assets/icons/new-column.svg';
 
 class StatusColumnsGenerator extends React.Component {
     constructor(props) {
@@ -56,6 +57,10 @@ class StatusColumnsGenerator extends React.Component {
         }
 
         this.updateDB(projectID, updatedProjectData);
+
+        setTimeout(() => {
+            window.location = `/project/${projectID}`;
+        }, 800);
     }
 
     updateDB = (projectID, projectData, oldStatus, newStatus) => {
@@ -122,7 +127,7 @@ class StatusColumnsGenerator extends React.Component {
                             :
                         null
                     }
-                    <button onClick={this.manageNewColumnCreation}>+</button>
+                    <img onClick={this.manageNewColumnCreation} height='25px' src={NewColumnIcon} alt='create new status column'></img>
                 </div>
             </div>
         );

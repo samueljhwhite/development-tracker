@@ -53,15 +53,15 @@ class AddTaskCard extends React.Component {
     render() {
        if (this.state.active === false) {
            return(
-               <button onClick={this.toggleActive} > <img height='16px' width='16px' src={AddTaskCardIcon}></img> </button>
+               <button onClick={this.toggleActive} > <img height='16px' width='16px' src={AddTaskCardIcon} alt='add a card'></img> </button>
            );
        } else {
            return (
-                <form className='newTaskSubmission'>
-                    <textarea placeholder='Enter task name' onChange={this.updateTaskName}></textarea>
-                    <div className='newTaskSubmissionOptions'>
-                        <button onClick={this.submitNewTask}> <img height='16px' width='16px' src={AddTaskCardIcon}></img> </button>
-                        <button onClick={this.toggleActive}><img height='16px' width='16px' src={CancelAdditionIcon}></img></button>
+                <form className='new-task-submission'>
+                    <textarea placeholder='Enter new task title' onChange={this.updateTaskName}></textarea>
+                    <div className='submission-options'>
+                        <button onClick={this.submitNewTask}> <img height='16px' width='16px' src={AddTaskCardIcon} alt='add a card'></img> </button>
+                        <button onClick={this.toggleActive}><img height='16px' width='16px' src={CancelAdditionIcon} alt='cancel new card'></img></button>
                     </div>
                 </form>
            );

@@ -7,7 +7,6 @@ function UnsavedChanges(props) {
     if (hasBeenEdited === true) {
         return(
             <div>
-                <p>You have unsaved changes</p>
                 <button onClick={pushChangesToDatabase}>SAVE!</button>
             </div>
         );

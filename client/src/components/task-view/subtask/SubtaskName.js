@@ -24,7 +24,7 @@ class SubtaskName extends React.Component {
             return(
                 <div className='flex-child'>
                     <textarea defaultValue={this.state.name} onChange={onNameChange}></textarea>
-                    <button onClick={this.toggleEditing}> X Cancel </button>
+                    <button onClick={this.toggleEditing}>Cancel</button>
                 </div>
             );
         }

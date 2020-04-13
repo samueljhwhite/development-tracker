@@ -48,12 +48,41 @@
 .add-column {
     margin: 10px;
 }
+
+.rename-col {
+    display: flex;
+    align-items: center;
+}
+
+.col-details-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.col-controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-task-submission {
+    width: 100%;
+}
+
+.new-task-submission textarea {
+    width: 95%;
+}
+
+.submission-options {
+    display: flex;
+    justify-content: space-between;
+}
   
 .task-card {
     border: 1px solid #7d7d7d;
     margin: 5px;
-    margin-bottom: 25px;
-    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-top: 30px;
     width: 300px;
     background-color: #ffffff;
     border-radius: 2px;
@@ -155,3 +184,6 @@ textarea {
     width: 85%;
 }
 
+.add-column img {
+    cursor: pointer;
+}

@@ -80,8 +80,8 @@ class ProjectCard extends React.Component {
                                 ? 
                             <div className='editing'>
                                 <textarea onChange={this.captureNameChange} defaultValue={projectObj.name}></textarea>
-                                <img onClick={this.updateProjectName} height='20px' width='20px' src={Confirm}></img>
-                                <img onClick={this.toggleEditName} height='19px' width='19px' src={Cancel}></img>
+                                <img onClick={this.updateProjectName} height='20px' width='20px' src={Confirm} alt='confirm'></img>
+                                <img onClick={this.toggleEditName} height='19px' width='19px' src={Cancel} alt='cancel'></img>
                             </div>
                                 : 
                             <h1 onClick={this.toggleEditName}>{projectObj.name}</h1>
@@ -92,8 +92,8 @@ class ProjectCard extends React.Component {
                                 ? 
                             <div className='editing'>
                                 <textarea onChange={this.captureDescriptionChange} defaultValue={projectObj.description}></textarea> 
-                                <img onClick={this.updateProjectDescription} height='20px' width='20px' src={Confirm}></img>
-                                <img onClick={this.toggleEditDescription} height='19px' width='19px' src={Cancel}></img>
+                                <img onClick={this.updateProjectDescription} height='20px' width='20px' src={Confirm} alt='confirm'></img>
+                                <img onClick={this.toggleEditDescription} height='19px' width='19px' src={Cancel} alt='cancel'></img>
                             </div>
                                 : 
                             <p onClick={this.toggleEditDescription}>{projectObj.description}</p>
@@ -104,7 +104,7 @@ class ProjectCard extends React.Component {
                 </div>
 
                 <div className='go-to'>
-                    <Link to={'project/'+projectObj._id}>   <img src={GoToIcon}></img>    </Link>
+                    <Link to={'project/'+projectObj._id}>   <img src={GoToIcon} alt='go to project'></img>    </Link>
                 </div>
 
             </div>

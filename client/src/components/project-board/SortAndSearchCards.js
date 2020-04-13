@@ -20,7 +20,7 @@ class SortAndSearchCards extends React.Component {
         return(
             <div className='sort-search'>
                 
-                <img height='20px' width='20px' src={TagIcon}></img>
+                <img height='20px' width='20px' src={TagIcon} alt='number of tags'></img>
                 <select onChange={ handleTagChange } className='filter' name='tags'>
                     <option value=''>No Filter</option>
                     {
@@ -30,10 +30,10 @@ class SortAndSearchCards extends React.Component {
                     }
                 </select>
 
-                <img height='20px' width='20px' src={SearchIcon}></img>
+                <img height='20px' width='20px' src={SearchIcon} alt='search'></img>
                 <input onChange={ handleSearchInput } className='search' type='search' placeholder='  ... filter cards by task name'></input>
 
-                <img height='25px' width='25px' src={SortIcon}></img>
+                <img height='25px' width='25px' src={SortIcon} alt='sort'></img>
                 <select onChange={ handleSortByChange } className='filter' name='sort'>
                     <option value='alphabetical'>Alphabetical</option>
                     <option value='createdAt'>Date Created</option>

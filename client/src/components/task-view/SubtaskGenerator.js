@@ -70,9 +70,10 @@ class SubtaskGenerator extends React.Component {
                         </div>
                         <textarea onChange={this.registerSubtaskDescription} defaultValue='Subtask Description...'></textarea>
                         <button onClick={this.saveNewSubtask}>Save Subtask</button>
+                        <button onClick={this.toggleAddingNewSubtask}>Cancel</button>
                     </div>
                         :
-                    <button onClick={this.toggleAddingNewSubtask}>Add New Subtask</button>
+                    <button className='add-new-subtask' onClick={this.toggleAddingNewSubtask}>Add New Subtask</button>
                 }
             </div>
         );

@@ -182,21 +182,19 @@ class TaskView extends React.Component {
                 </div>
                 
                 <div className='task-view-content'>
-                    <UnsavedChanges hasBeenEdited={this.state.hasBeenEdited} pushChangesToDatabase={this.pushChangesToDatabase} />
-                    
                     <div className='task-header'>
                         <TaskName taskName={this.state.name} projectName={this.state.projectData.name} onChangeTaskName={this.onChangeTaskName} />
+                        <UnsavedChanges hasBeenEdited={this.state.hasBeenEdited} pushChangesToDatabase={this.pushChangesToDatabase} />
                         <TaskStatus taskStatus={this.state.status} statusesArr={this.state.projectStauses} onChangeStatus={this.onChangeStatus} />
                     </div>
 
-                    <div className='task-section-flex'>
+                    <div className='task-header'>
                         <Tags tagsArr={tagsArr} existingProjectTags={this.state.existingProjectTags} captureNewTagValue={this.captureNewTagValue} addNewTag={this.addNewTag} />
                     </div>
 
                     <Description taskDescription={taskDescription} onChangeDescription={this.onChangeDescription} pushChangesToDatabase={this.pushChangesToDatabase} />
                     <SubtaskGenerator subtasksArr={subtasksArr} commitSubtaskChange={this.commitSubtaskChange} statusesArr={this.state.projectStauses} saveNewSubtaskToDB={this.saveNewSubtaskToDB} />
                     <TimeStamps createdAt={this.state.createdAt} updatedAt={this.state.updatedAt} />
-                    <UnsavedChanges hasBeenEdited={this.state.hasBeenEdited} pushChangesToDatabase={this.pushChangesToDatabase} />
                 </div>
             </div>
         );

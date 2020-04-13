@@ -16,33 +16,39 @@ class Tags extends React.Component {
         const { existingProjectTags, tagsArr, captureNewTagValue, addNewTag} = this.props;
         
         if (this.state.editing === false) {
-            return(
-                <div className='flex-child'>
-                    <strong>Tags:</strong> <button onClick={this.toggleEditing}>Add Tag</button>
-                    <br></br>
-                    {
-                        tagsArr.map((tag, i) => {
-                            return <span key={i}>{tag}</span>
-                        })
-                    }
+            return(  
+                <div className='tags'>
+                    <div className='flex-child'>
+                        <strong>Tags:</strong> 
+                        {
+                            tagsArr.map((tag, i) => {
+                                return <span className='tag' key={i}>{tag} |</span>
+                            })
+                        }
+                    </div>
+                    <div className='flex-child'>
+                        <button onClick={this.toggleEditing}>Add Tag</button>
+                    </div>
                 </div>
             );
         } else {
             return(
                 <div className='flex-child'>
                     <div>
-                        <textarea placeholder='Enter a new tag' onChange={captureNewTagValue}></textarea>
-                        <button onClick={addNewTag}>ADD</button>
-                    </div>
-                    <div>
                         <select onChange={captureNewTagValue} >
-                            <option></option>
-                        {
-                            existingProjectTags.map((tag, i) => {
-                                return <option key={i}>{tag}</option>
-                            })
-                        }
+                            <option value=''>Choose existing tag</option>
+                            {
+                                existingProjectTags.map((tag, i) => {
+                                    return <option key={i}>{tag}</option>
+                                })
+                            }
                         </select>
+                    </div>
+                        <textarea placeholder='Enter a new tag' onChange={captureNewTagValue}></textarea>
+                        <button onClick={addNewTag}>Add</button>
+                        <button onClick={this.toggleEditing}>Cancel</button>
+                    <div>
+
                     </div>
                 </div>
             );
