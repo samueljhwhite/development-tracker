@@ -29,7 +29,7 @@ class ProjectBoard extends React.Component {
         const projectID = this.props.match.params.id;
 
         // Call server, query DB for project data & assign to component state.
-        axios.get(`http://localhost:5000/projects/${projectID}`).then(res => {
+        axios.get(`https://aqueous-garden-71653.herokuapp.com/projects/${projectID}`).then(res => {
             this.setState({
                 activeProject: res.data,
                 projectID: res.data._id,
@@ -41,7 +41,7 @@ class ProjectBoard extends React.Component {
         .catch(err => console.log(err));
 
         // Call server, query DB for all tasks assigned to project, calculate unique tags, and set state. 
-        axios.get(`http://localhost:5000/tasks/project/${projectID}`).then(res => {
+        axios.get(`https://aqueous-garden-71653.herokuapp.com/tasks/project/${projectID}`).then(res => {
             const allArrItems = []
 
             res.data.forEach(taskObj => {

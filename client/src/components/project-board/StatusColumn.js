@@ -42,7 +42,7 @@ class StatusColumn extends React.Component {
         const deleteString = prompt(`WARNING! Deleting this column will permanently remove this column and all related tasks. \n \n Type "${this.state.columnStatus.name}" to confirm deletion`);
 
         if (deleteString === this.state.columnStatus.name) {
-            axios.delete(`http://localhost:5000/tasks/project/${this.state.projectID}/status/${this.state.columnStatus.name}`).then(res => console.log(res));
+            axios.delete(`https://aqueous-garden-71653.herokuapp.com/tasks/project/${this.state.projectID}/status/${this.state.columnStatus.name}`).then(res => console.log(res));
             
             const { deleteStatusColumnFromDB } = this.props;
             deleteStatusColumnFromDB(this.state.columnStatus.name);
@@ -101,7 +101,7 @@ class StatusColumn extends React.Component {
 
     // Recieves task data with modified status. 
     pushDragChangesToDB = (taskData) => {
-        axios.post(`http://localhost:5000/tasks/update/${taskData._id}`, taskData).then(res => console.log(res))
+        axios.post(`https://aqueous-garden-71653.herokuapp.com/tasks/update/${taskData._id}`, taskData).then(res => console.log(res))
     }
 
     render() {

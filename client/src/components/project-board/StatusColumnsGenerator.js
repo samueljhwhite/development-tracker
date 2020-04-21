@@ -65,10 +65,10 @@ class StatusColumnsGenerator extends React.Component {
 
     updateDB = (projectID, projectData, oldStatus, newStatus) => {
         // Update status name in DB
-        axios.post(`http://localhost:5000/projects/update/${projectID}`, projectData).then(res => console.log(res));
+        axios.post(`https://aqueous-garden-71653.herokuapp.com/projects/update/${projectID}`, projectData).then(res => console.log(res));
 
         // Change tasks status value across all associated tasks in DB
-        axios.post(`http://localhost:5000/tasks/project/${projectID}/status/${oldStatus}/${newStatus}`).then(res => console.log(res));
+        axios.post(`https://aqueous-garden-71653.herokuapp.com/tasks/project/${projectID}/status/${oldStatus}/${newStatus}`).then(res => console.log(res));
 
         setTimeout(() => {
             window.location = `/project/${projectID}`

@@ -29,6 +29,7 @@ const tasksRouter = require('./routes/tasksRoutes');
 app.use('/projects', projectsRouter);
 app.use('/tasks', tasksRouter);
 
+// Config Heroku - forward front-end.
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 

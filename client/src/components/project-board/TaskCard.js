@@ -44,7 +44,7 @@ class TaskCard extends React.Component {
             subtasks: task.subtasks
         }
 
-        axios.post(`http://localhost:5000/tasks/update/${task._id}`, updatedTask);
+        axios.post(`https://aqueous-garden-71653.herokuapp.com/tasks/update/${task._id}`, updatedTask);
 
         setTimeout(() => {
             window.location = `/project/${task.assignedProject}`
@@ -56,7 +56,7 @@ class TaskCard extends React.Component {
         const deleteString = prompt(`This action will delete this task, and all associated data. \n \n Enter task name (${task.name}) to confirm deletion.`)
         
         if (deleteString === task.name) {
-            axios.delete(`http://localhost:5000/tasks/delete/${task._id}`).then(res => console.log(res));
+            axios.delete(`https://aqueous-garden-71653.herokuapp.com/tasks/delete/${task._id}`).then(res => console.log(res));
             alert('Task Deleted');
 
             setTimeout(() => {

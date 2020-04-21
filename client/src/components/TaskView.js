@@ -41,7 +41,7 @@ class TaskView extends React.Component {
     componentDidMount() {
         const taskId = this.props.match.params.id;
 
-        axios.get(`http://localhost:5000/tasks/${taskId}`).then(res => {
+        axios.get(`https://aqueous-garden-71653.herokuapp.com/tasks/${taskId}`).then(res => {
             this.setState({
                 task: res.data, // Can be removed later
                 assignedProject: res.data.assignedProject,
@@ -63,7 +63,7 @@ class TaskView extends React.Component {
 
     // Get needed project data for child components. 
     getProjectData = () => {
-        axios.get(`http://localhost:5000/projects/${this.state.assignedProject}`).then(res => {
+        axios.get(`https://aqueous-garden-71653.herokuapp.com/projects/${this.state.assignedProject}`).then(res => {
             this.setState({ 
                 projectData: res.data, // Can likely be removed later
                 projectStauses: res.data.statuses,
@@ -75,7 +75,7 @@ class TaskView extends React.Component {
 
     // Call DB for project tasks. Loop and collate all .tags array items, then filter for unique values and assign to component state.
     getExistingTagData = () => {
-        axios.get(`http://localhost:5000/tasks/project/${this.state.assignedProject}`).then(res => {
+        axios.get(`https://aqueous-garden-71653.herokuapp.com/tasks/project/${this.state.assignedProject}`).then(res => {
             const allArrItems = []
 
             res.data.forEach(taskObj => {
@@ -169,7 +169,7 @@ class TaskView extends React.Component {
             subtasks: this.state.subtasks,
         }
         console.log(updatedTask)
-        axios.post(`http://localhost:5000/tasks/update/${id}`, updatedTask).then(res => console.log(res.data));
+        axios.post(`https://aqueous-garden-71653.herokuapp.com/tasks/update/${id}`, updatedTask).then(res => console.log(res.data));
 
         setTimeout(() => {
             window.location = `/task/${id}`;

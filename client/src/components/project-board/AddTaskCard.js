@@ -44,7 +44,7 @@ class AddTaskCard extends React.Component {
             status: this.state.status.name,
         };
 
-        axios.post('http://localhost:5000/tasks/add', newTask).then(res => console.log(res.data));
+        axios.post('https://aqueous-garden-71653.herokuapp.com/tasks/add', newTask).then(res => console.log(res.data));
 
         window.location = `/project/${this.state.assignedProject}`;
     }

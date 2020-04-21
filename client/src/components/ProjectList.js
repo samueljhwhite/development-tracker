@@ -44,7 +44,7 @@ class ProjectList extends React.Component {
             description: this.state.newProjectDescription
         }
 
-        axios.post('http://localhost:5000/projects/add', newProject).then(res => console.log(res));
+        axios.post('https://aqueous-garden-71653.herokuapp.com/projects/add', newProject).then(res => console.log(res));
 
         setTimeout(() => {
             window.location = '/'
@@ -52,7 +52,7 @@ class ProjectList extends React.Component {
     }
 
     updateProjectData = (updatedProjectObj) => { // Called at ProjectCard
-        axios.post(`http://localhost:5000/projects/update/${updatedProjectObj._id}`, updatedProjectObj).then(res => console.log(res));
+        axios.post(`https://aqueous-garden-71653.herokuapp.com/projects/update/${updatedProjectObj._id}`, updatedProjectObj).then(res => console.log(res));
 
         setTimeout(() => {
             window.location ='/';
@@ -61,8 +61,8 @@ class ProjectList extends React.Component {
 
     // Delete the project and all related, assigned, task data. Called at ProjectCard.
     deleteProjectAndTaskData = (projectID) => {
-        axios.delete(`http://localhost:5000/tasks/project/delete/${projectID}`).then(res => console.log(res));
-        axios.delete(`http://localhost:5000/projects/delete/${projectID}`).then(res => console.log(res));
+        axios.delete(`https://aqueous-garden-71653.herokuapp.com/tasks/project/delete/${projectID}`).then(res => console.log(res));
+        axios.delete(`https://aqueous-garden-71653.herokuapp.com/projects/delete/${projectID}`).then(res => console.log(res));
 
         setTimeout(() => {
             window.location ='/';
