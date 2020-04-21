@@ -29,14 +29,14 @@ const tasksRouter = require('./routes/tasksRoutes');
 app.use('/projects', projectsRouter);
 app.use('/tasks', tasksRouter);
 
-// Serve static assets if in production
-if (process.env.NODE_ENV === 'production') {
-    // Set static folder
-    app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    });
-}
+
+
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+ });
 
 // server listen on port var
 app.listen(port, () => {
