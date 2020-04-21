@@ -18,7 +18,7 @@ class ProjectList extends React.Component {
 
     // Get list of all existing projects (array), and update component's state.
     componentDidMount() {
-        axios.get('http://localhost:5000/projects')
+        axios.get('https://aqueous-garden-71653.herokuapp.com/projects')
             .then(res => {
                 this.setState({ projectsArr: res.data })
             })
