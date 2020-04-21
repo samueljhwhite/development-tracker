@@ -119,6 +119,13 @@ class TaskView extends React.Component {
         this.pushChangesToDatabase();
     }
 
+    commitTagRemoval = (newTagsArr) => { // Called at Tags child component.
+        this.setState({ tags: newTagsArr }); 
+        setTimeout(() => {
+            this.pushChangesToDatabase();
+        }); // poor implementation.
+    }
+
     onChangeDescription = (e) => {
         this.setState({ description: e.target.value });
         this.registerEdit();
@@ -152,6 +159,7 @@ class TaskView extends React.Component {
     // Copy task data from state, update DB, and refresh window.
     pushChangesToDatabase = () => {
         const id = this.state.taskId;
+        console.log(this.state.tags);
         const updatedTask = {
             name: this.state.name,
             assignedTo: this.state.assignedTo,
@@ -160,6 +168,7 @@ class TaskView extends React.Component {
             tags: this.state.tags,
             subtasks: this.state.subtasks,
         }
+        console.log(updatedTask)
         axios.post(`http://localhost:5000/tasks/update/${id}`, updatedTask).then(res => console.log(res.data));
 
         setTimeout(() => {
@@ -189,7 +198,7 @@ class TaskView extends React.Component {
                     </div>
 
                     <div className='task-header'>
-                        <Tags tagsArr={tagsArr} existingProjectTags={this.state.existingProjectTags} captureNewTagValue={this.captureNewTagValue} addNewTag={this.addNewTag} />
+                        <Tags tagsArr={tagsArr} existingProjectTags={this.state.existingProjectTags} captureNewTagValue={this.captureNewTagValue} addNewTag={this.addNewTag} commitTagRemoval={this.commitTagRemoval} />
                     </div>
 
                     <Description taskDescription={taskDescription} onChangeDescription={this.onChangeDescription} pushChangesToDatabase={this.pushChangesToDatabase} />

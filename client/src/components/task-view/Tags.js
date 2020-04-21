@@ -12,6 +12,16 @@ class Tags extends React.Component {
         this.setState({ editing: !this.state.editing });
     }
 
+    removeTag = (e) => {
+        const { tagsArr, commitTagRemoval } = this.props;
+        const flaggedTag = e.target.id;
+        
+        const arrIndex = tagsArr.findIndex(tag => tag === flaggedTag);
+        const newTagsArr = tagsArr.slice(0, arrIndex).concat(tagsArr.slice(arrIndex + 1));
+
+        commitTagRemoval(newTagsArr);
+    }
+
     render() {
         const { existingProjectTags, tagsArr, captureNewTagValue, addNewTag} = this.props;
         
@@ -22,7 +32,7 @@ class Tags extends React.Component {
                         <strong>Tags:</strong> 
                         {
                             tagsArr.map((tag, i) => {
-                                return <span className='tag' key={i}>{tag} |</span>
+                                return <span className='tag' onClick={this.removeTag} key={i} id={tag}> {tag} </span>
                             })
                         }
                     </div>

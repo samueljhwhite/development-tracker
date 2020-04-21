@@ -58,8 +58,12 @@
 }
 
 .tag {
-   padding-left: 4px;
-   text-decoration: underline;
+   padding-left: 10px;
+}
+
+.tag:hover {
+    text-decoration: line-through;
+    cursor: default;
 }
 
 .task-section {
