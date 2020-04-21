@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 // ENV vars in env file
 require('dotenv').config();
@@ -25,10 +26,17 @@ db.once('open', () => {
 // Use routes
 const projectsRouter = require('./routes/projectsRoutes');
 const tasksRouter = require('./routes/tasksRoutes');
-
 app.use('/projects', projectsRouter);
 app.use('/tasks', tasksRouter);
 
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 // server listen on port var
 app.listen(port, () => {
