@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from 'axios'.default;
 import { Link } from 'react-router-dom';
 
 import TaskName from './task-view/TaskName.js';
@@ -170,13 +170,13 @@ class TaskView extends React.Component {
         }
         console.log(updatedTask)
 
-        setTimeout(() => {
-            axios.post(`https://aqueous-garden-71653.herokuapp.com/tasks/update/${id}`, updatedTask).then(res => console.log(res.data)).catch(err => console.log(err));
-        })
 
-        setTimeout(() => {
-            window.location = `/task/${id}`;
-        }, 1000);
+        axios.post(`https://aqueous-garden-71653.herokuapp.com/tasks/update/${id}`, updatedTask).then(res => console.log(res.data)).catch(err => console.log(err));
+
+
+        // setTimeout(() => {
+        //     window.location = `/task/${id}`;
+        // }, 1000);
     }
 
     render() {
