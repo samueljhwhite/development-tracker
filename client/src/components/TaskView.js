@@ -169,7 +169,7 @@ class TaskView extends React.Component {
             subtasks: this.state.subtasks,
         }
         console.log(updatedTask)
-        axios.post(`https://aqueous-garden-71653.herokuapp.com/tasks/update/${id}`, updatedTask).then(res => console.log(res.data));
+        axios.post(`https://aqueous-garden-71653.herokuapp.com/tasks/update/${id}`, updatedTask).then(res => console.log(res.data)).catch(err => console.log(err));
 
         setTimeout(() => {
             window.location = `/task/${id}`;
